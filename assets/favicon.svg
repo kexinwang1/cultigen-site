@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="5" fill="#08080E"/>
+  <text
+    x="16" y="25"
+    font-family="Palatino Linotype, Book Antiqua, Palatino, Georgia, serif"
+    font-style="italic"
+    font-size="24"
+    text-anchor="middle"
+    fill="#CC2E60"
+  >a</text>
+</svg>

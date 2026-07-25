@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://funguylab.com" />
+<link rel="dns-prefetch" href="https://interactives.pub" />
+
+<link rel="manifest" href="https://artineerade.com/site.webmanifest" />
+<meta name="theme-color" content="#0A0A0E" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cultigen — AI Curriculum Engine | Frontier Research → Living Lessons &amp; Kits</title>
+<meta name="description" content="Cultigen is artineer's AI engine that turns the latest research into standards-aligned curriculum, a working interactive, and a buildable kit — in minutes, not years. In production at funguylab." />
+<meta name="author" content="Kexin Wang" />
+<meta name="keywords" content="AI curriculum engine, AI education technology, frontier research to curriculum, living textbook, AI-generated lessons, STEAM kit generation, funguy.ai, artineer, dynamic curriculum, edtech AI" />
+<meta name="robots" content="index, follow" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="/assets/styles.css" />
+<link rel="stylesheet" href="/assets/styles.css" />
+  <!-- SEO: canonical + Open Graph + Twitter -->
+  <link rel="canonical" href="/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="artineer" />
+  <meta property="og:url" content="https://cultigen.ai/" />
+  <meta property="og:title" content="Cultigen — AI Curriculum Engine | Frontier Research → Living Lessons &amp; Kits" />
+  <meta property="og:description" content="An AI engine that turns the latest research into standards-aligned curriculum, a working interactive, and a buildable kit — in minutes, not years." />
+  <meta property="og:image" content="https://artineerade.com/assets/og-home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cultigen — AI Curriculum Engine | artineer" />
+  <meta name="twitter:description" content="Turn last week's arXiv into this week's lesson. Frontier research → curriculum + interactive + kit, in minutes." />
+  <meta name="twitter:image" content="https://artineerade.com/assets/og-home.jpg" />
+  <meta name="twitter:image:alt" content="Cultigen — artineer's AI curriculum engine" />
+<style>
+  /* ── Cultigen page-specific ── */
+  .cv-hero-tag {
+    display:inline-block; font-family:var(--fm); font-size:.72rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--moss-3);
+    border:1px solid rgba(90,136,80,.3); background:rgba(90,136,80,.1);
+    padding:5px 12px; border-radius:100px; margin-bottom:20px;
+  }
+  .cv-grad {
+    background:linear-gradient(100deg, var(--rose-3), var(--chrome-3) 55%, var(--moss-3));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  /* contrast stat row */
+  .cv-contrast {
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:32px;
+    max-width:860px; margin:0 auto;
+  }
+  .cv-contrast .col { text-align:center; }
+  .cv-old { font-family:var(--fd); font-size:2.6rem; font-weight:300; color:var(--on-dark-m); line-height:1.1; text-decoration:line-through; text-decoration-color:rgba(204,46,96,.5); text-decoration-thickness:2px; }
+  .cv-new { font-family:var(--fd); font-size:2.6rem; font-weight:400; line-height:1.1;
+    background:linear-gradient(100deg, var(--rose-3), var(--chrome-3) 55%, var(--moss-3));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .cv-contrast .lbl { font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; color:var(--on-dark-m); margin-top:10px; }
+  .cv-arrow { font-size:1.8rem; color:var(--moss-3); }
+  /* pipeline */
+  .cv-pipe { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; align-items:stretch; gap:16px; }
+  .cv-pipe .node {
+    background:var(--dark-card); border:1px solid var(--dark-bd-2); border-radius:var(--r);
+    padding:28px 24px; text-align:center; display:flex; flex-direction:column; justify-content:center;
+  }
+  .cv-pipe .node .n-k { font-family:var(--fm); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--moss-3); margin-bottom:10px; }
+  .cv-pipe .node h4 { color:var(--on-dark); font-size:1.05rem; margin-bottom:6px; }
+  .cv-pipe .node p { color:var(--on-dark-2); font-size:.84rem; line-height:1.5; }
+  .cv-pipe .cv-step { display:flex; align-items:center; justify-content:center; color:var(--moss-3); font-size:1.6rem; }
+  .cv-engine { border-color:rgba(90,136,80,.4)!important; background:linear-gradient(160deg, rgba(90,136,80,.14), var(--dark-card))!important; }
+  @media (max-width:820px){
+    .cv-pipe { grid-template-columns:1fr; }
+    .cv-pipe .cv-step { transform:rotate(90deg); padding:4px 0; }
+    .cv-contrast { grid-template-columns:1fr; gap:8px; }
+    .cv-contrast .cv-arrow { transform:rotate(90deg); }
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Cultigen",
+  "applicationCategory": "EducationalApplication",
+  "description": "Cultigen is an AI curriculum engine that turns frontier research papers into standards-aligned, teachable curriculum, a working interactive teaching asset, and a buildable kit specification — compressing what once took an editorial board months into an engine's minutes.",
+  "brand": { "@type": "Brand", "name": "artineer" },
+  "url": "https://cultigen.ai/",
+  "keywords": [
+    "AI curriculum engine",
+    "AI education technology",
+    "frontier research to curriculum",
+    "living textbook",
+    "dynamic curriculum"
+  ]
+}
+</script>
+</head>
+<body>
+<a href="#main-content" class="skip-link" style="position:fixed;top:-80px;left:0;background:var(--chrome);color:#000;padding:8px 16px;z-index:99999;border-radius:0 0 8px 0;font-weight:600;transition:top .2s" onfocus="this.style.top='0'" onblur="this.style.top='-80px'">Skip to main content</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="https://artineerade.com/">artineer</a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="https://artineerade.com/school/">School</a>
+      <a href="/">cultigen.ai <span style="font-size:.82em;vertical-align:top">↗</span></a>
+      <a href="https://artineerade.com/workshop/">Workshop</a>
+      <a href="https://artineerade.com/events/">Events</a>
+      <a href="https://artineerade.com/kits/">Kits</a>
+      <a href="https://artineerade.com/journal/">Journal</a>
+      <a href="https://artineerade.com/lab/">Lab</a>
+      <a href="https://artineerade.com/about/">About</a>
+    </nav>
+
+<main id="main-content">
+    <div class="nav-cta">
+      <a href="https://artineerade.com/about/#contact" class="btn btn-primary btn-sm">Partner with us →</a>
+      <button class="nav-toggle" aria-label="open menu">☰</button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav" aria-label="Mobile navigation" id="mobile-nav">
+  <a href="https://artineerade.com/school/">School</a>
+  <a href="/">cultigen.ai <span style="font-size:.82em;vertical-align:top">↗</span></a>
+  <a href="https://artineerade.com/workshop/">Workshop</a>
+  <a href="https://artineerade.com/events/">Events</a>
+  <a href="https://artineerade.com/kits/">Kits</a>
+  <a href="https://artineerade.com/journal/">Journal</a>
+  <a href="https://artineerade.com/lab/">Lab</a>
+  <a href="https://artineerade.com/about/">About</a>
+  <a href="https://artineerade.com/about/#contact" class="btn btn-primary">Partner with us →</a>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="phead" data-dark-hero>
+  <div class="wrap">
+    <span class="cv-hero-tag">Cultigen · an artineer venture</span>
+    <h1>The frontier, in the classroom —<br><em class="cv-grad">while it's still the frontier.</em></h1>
+    <p style="margin-top:20px;font-size:1.08rem;max-width:660px">
+      Cultigen is an AI engine that turns the latest research into teachable, standards-aligned
+      curriculum — complete with a working interactive and a buildable kit. In minutes, not years.
+    </p>
+    <div class="btn-row">
+      <a href="https://artineerade.com/about/#contact" class="btn btn-metal btn-lg">Partner or invest →</a>
+      <a href="#how" class="btn btn-ghost btn-lg">How it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="dark-2">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker"><span class="dot"></span> The real constraint</span>
+      <h2>Textbooks aren't slow to write.<br>They're too expensive to update.</h2>
+    </div>
+    <div class="split wide">
+      <div class="reveal">
+        <p class="muted" style="font-size:1.05rem;line-height:1.8;color:var(--on-dark-2)">
+          The binding constraint on educational material was never authorship speed — it was
+          <strong style="color:var(--on-dark);font-weight:600">amortization</strong>. A textbook demands an
+          editorial board, peer review, publishing, and distribution. The cost is high enough that a
+          new edition can only be justified every 5–10 years.
+        </p>
+        <p class="muted" style="line-height:1.8;color:var(--on-dark-2)">
+          That economic structure produces one brutal fact: what students learn always lags the frontier
+          by years — sometimes decades. The biology a high-schooler studies today may be settled science
+          from twenty or thirty years ago.
+        </p>
+        <p class="muted" style="line-height:1.8;color:var(--on-dark-2)">
+          CRISPR, AlphaFold, neural cellular automata — these don't reach the classroom.
+          <strong style="color:var(--on-dark);font-weight:600">Not because they can't be taught</strong>,
+          but because no one can afford to re-author the frontier into curriculum every year.
+        </p>
+        <p class="muted" style="line-height:1.8;color:var(--on-dark-2)">
+          The waste runs both ways. Most publicly-funded research never reaches the public at all —
+          researchers have neither the time nor the tools to turn a paper into something a twelve-year-old
+          can learn from. Two broken things, one root cause: translating research into teachable content has
+          always been too slow and too expensive to keep current.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="pull" style="font-size:clamp(1.15rem,2.4vw,1.5rem);padding:8px 0 8px 28px">
+          "Students don't learn old science because it's true. They learn it because it's already been
+          paid for."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE UNLOCK -->
+<section class="dark">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="kicker teal"><span class="dot"></span> The unlock</span>
+      <h2>AI breaks the cost structure.</h2>
+      <p class="muted" style="max-width:660px;margin:16px auto 0;color:var(--on-dark-2)">
+        When turning a fresh paper into standards-aligned, teachable, kit-equipped content drops from
+        <em>an editorial board and several months</em> to <em>an engine and a few minutes</em>, curriculum
+        can be alive for the first time. It can chase the frontier.
+      </p>
+    </div>
+
+    <div class="reveal" style="margin:56px 0 48px">
+      <div class="cv-contrast">
+        <div class="col">
+          <div class="cv-old">5–10 years</div>
+          <div class="lbl">Traditional edition cycle</div>
+        </div>
+        <div class="cv-arrow">→</div>
+        <div class="col">
+          <div class="cv-new">Minutes</div>
+          <div class="lbl">Cultigen, per paper</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="max-width:820px;margin:0 auto;text-align:center">
+      <p style="font-family:var(--fd);font-style:italic;font-size:clamp(1.2rem,2.6vw,1.7rem);line-height:1.6;color:var(--on-dark)">
+        This isn't doing the old thing faster. It's a product category that was physically impossible
+        before: <span class="cv-grad">dynamic, always-fresh curriculum that turns last week's arXiv into
+        this week's lesson.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT PRODUCES -->
+<section>
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker gold"><span class="dot"></span> What Cultigen produces</span>
+      <h2>One paper in. Three things out.</h2>
+      <p class="muted">Not a summary. A complete, ready-to-teach package — the content, the tool, and the physical build.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="ic teal"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+        <h3>Learnable content</h3>
+        <p class="muted" style="font-size:.92rem">
+          Standards-aligned lessons, missions, and explanations — pitched at the right level and scaffolded
+          for real pedagogy, generated straight from primary research.
+        </p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M7 21h10"/><path d="M12 17v4"/><path d="m9 8 3 2-3 2z" fill="currentColor"/></svg></div>
+        <h3>A working teaching asset</h3>
+        <p class="muted" style="font-size:.92rem">
+          Not just text — a real interactive, simulation, or demo students actually use to <em>feel</em> the
+          concept, not merely read about it.
+        </p>
+      </div>
+      <div class="card">
+        <div class="ic gold"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></div>
+        <h3>A kit specification</h3>
+        <p class="muted" style="font-size:.92rem">
+          A buildable bill of materials and protocol, so the concept leaves the screen and becomes
+          hands-on, physical, and real in a learner's hands.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="alt">
+  <div class="wrap">
+    <div class="split wide">
+      <div class="reveal">
+        <span class="kicker teal"><span class="dot"></span> The architecture</span>
+        <h2>Stable core.<br>Living edges.</h2>
+        <p class="muted" style="margin-top:20px;font-size:1.02rem;line-height:1.75">
+          A curriculum shouldn't be entirely fluid — the fundamentals are the fundamentals. So Cultigen
+          builds around a <strong>stable, standards-aligned core</strong>, then wraps it in
+          <strong>frontier modules that stay current</strong> as the research moves.
+        </p>
+        <p class="muted" style="line-height:1.75">
+          The core gives students solid ground. The frontier modules keep them in contact with what's
+          actually happening right now — and because the original researchers review each one for accuracy,
+          "up to date" never means "unvetted."
+        </p>
+        <p class="muted" style="line-height:1.75">
+          It also changes what you're buying. Schools and families don't subscribe to a textbook that
+          slowly goes stale — <strong>they subscribe to science that stays current.</strong>
+        </p>
+      </div>
+      <div class="reveal">
+        <div style="border:1px solid var(--border);border-radius:var(--r);overflow:hidden">
+          <div style="padding:22px 24px;background:var(--panel);border-bottom:1px solid var(--border)">
+            <div style="font-family:var(--fm);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moss)">Stable core</div>
+            <div style="margin-top:6px;font-weight:600;color:var(--text)">Fundamentals · standards-aligned · slow-changing</div>
+          </div>
+          <div style="padding:22px 24px;background:linear-gradient(135deg,var(--moss-pale),var(--chrome-pale))">
+            <div style="font-family:var(--fm);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose)">Frontier modules ↻</div>
+            <div style="margin-top:6px;font-weight:600;color:var(--text)">This week's research · researcher-reviewed · always fresh</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="dark-2" id="how">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="kicker"><span class="dot"></span> The pipeline</span>
+      <h2>From arXiv to classroom.</h2>
+    </div>
+    <div class="cv-pipe reveal">
+      <div class="node">
+        <div class="n-k">Input</div>
+        <h4>A frontier paper</h4>
+        <p>The latest discovery — dense, technical, locked behind jargon.</p>
+      </div>
+      <div class="cv-step">→</div>
+      <div class="node cv-engine">
+        <div class="n-k" style="color:var(--moss-3)">The engine</div>
+        <h4>Cultigen</h4>
+        <p>AI decomposes the research, aligns it to standards, and scaffolds the pedagogy — with the original researchers reviewing for accuracy.</p>
+      </div>
+      <div class="cv-step">→</div>
+      <div class="node">
+        <div class="n-k">Output</div>
+        <h4>Content · Asset · Kit</h4>
+        <p>A complete, teachable package — ready this week, not this decade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IN PRODUCTION -->
+<section class="dark">
+  <div class="wrap">
+    <div class="shead">
+      <span class="kicker teal"><span class="dot"></span> First proof, already shipping</span>
+      <h2>Mycelian is the first product<br>off the engine.</h2>
+    </div>
+    <div class="split wide">
+      <div class="reveal">
+        <p class="muted" style="color:var(--on-dark-2);line-height:1.8">
+          <a href="https://funguylab.com" target="_blank" rel="noopener">Mycelian</a> — our AI fungal-printing
+          kit, published at SIGGRAPH — is Cultigen's first product to reach the market. It isn't a
+          prototype: it's <strong style="color:var(--on-dark)">already shipping to paying customers across
+          three continents.</strong>
+        </p>
+        <p class="muted" style="color:var(--on-dark-2);line-height:1.8">
+          And it's manufactured through our own supply chain in China, at prices incumbents can't match —
+          so the same engine that keeps the content current also makes the hardware defensible.
+        </p>
+        <div class="btn-row">
+          <a href="https://funguylab.com" target="_blank" rel="noopener" class="btn btn-ghost">See Mycelian at funguy.ai ↗</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="grid g2" style="gap:16px">
+          <div style="padding:26px 22px;background:var(--dark-card);border:1px solid var(--dark-bd-2);border-radius:var(--r)">
+            <div style="font-family:var(--fd);font-size:2.2rem;font-weight:300;color:var(--on-dark);line-height:1">3</div>
+            <div style="font-size:.8rem;color:var(--on-dark-2);margin-top:8px">Continents shipping to</div>
+          </div>
+          <div style="padding:26px 22px;background:var(--dark-card);border:1px solid var(--dark-bd-2);border-radius:var(--r)">
+            <div style="font-family:var(--fd);font-size:2.2rem;font-weight:300;color:var(--on-dark);line-height:1">SIGGRAPH</div>
+            <div style="font-size:.8rem;color:var(--on-dark-2);margin-top:8px">Peer-reviewed &amp; published</div>
+          </div>
+          <div style="padding:26px 22px;background:var(--dark-card);border:1px solid var(--dark-bd-2);border-radius:var(--r)">
+            <div style="font-family:var(--fd);font-size:2.2rem;font-weight:300;color:var(--on-dark);line-height:1">Paying</div>
+            <div style="font-size:.8rem;color:var(--on-dark-2);margin-top:8px">Real customers, not pilots</div>
+          </div>
+          <div style="padding:26px 22px;background:var(--dark-card);border:1px solid var(--dark-bd-2);border-radius:var(--r)">
+            <div style="font-family:var(--fd);font-size:2.2rem;font-weight:300;color:var(--on-dark);line-height:1">Own</div>
+            <div style="font-size:.8rem;color:var(--on-dark-2);margin-top:8px">Supply chain &amp; cost moat</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE NETWORK -->
+<section>
+  <div class="wrap">
+    <div class="shead center">
+      <span class="kicker"><span class="dot"></span> Why it compounds</span>
+      <h2>A network, not a catalog.</h2>
+      <p class="muted" style="max-width:680px;margin:16px auto 0">
+        Cultigen isn't one product — it's a three-sided network where each side makes the others stronger.
+      </p>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="ic teal"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 2v8l-4 4"/><path d="M14 2v8l4 4"/><circle cx="12" cy="17" r="5"/></svg></div>
+        <h3>Researchers</h3>
+        <p class="muted" style="font-size:.92rem">
+          Supply frontier work <em>and</em> authoritative review. In return they get what they can't easily
+          get today: real-world impact, public engagement — increasingly a funding requirement — and
+          distribution. Who better to check a lesson than the paper's own author?
+        </p>
+      </div>
+      <div class="card">
+        <div class="ic"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4"/></svg></div>
+        <h3>The engine</h3>
+        <p class="muted" style="font-size:.92rem">
+          Automates the translation — matching each paper to the teachable formats it fits, and generating
+          the content, interactive, and kit spec. The layer that makes the whole loop fast and cheap.
+        </p>
+      </div>
+      <div class="card">
+        <div class="ic gold"><svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <h3>Schools &amp; families</h3>
+        <p class="muted" style="font-size:.92rem">
+          Subscribe to always-current, researcher-verified science education — and their demand is exactly
+          what gives researchers a reason to bring their work to the platform.
+        </p>
+      </div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:44px">
+      <p style="font-family:var(--fd);font-style:italic;font-size:clamp(1.05rem,2.2vw,1.35rem);line-height:1.6;color:var(--text);max-width:780px;margin:0 auto">
+        More researchers → more authoritative frontier content → more schools and families → more reason for
+        researchers to join. <span style="font-style:normal;background:linear-gradient(100deg,var(--rose),var(--chrome) 55%,var(--moss));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:600">A flywheel a single-product kit
+        can't build.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- THE OPPORTUNITY -->
+<section class="dark-2">
+  <div class="wrap">
+    <div class="shead center">
+      <span class="kicker gold"><span class="dot"></span> Why this, why now</span>
+      <h2>A century-old market,<br>rebuilt as a living service.</h2>
+    </div>
+    <div class="grid g3 reveal" data-stagger>
+      <div>
+        <div style="font-family:var(--fd);font-size:2.4rem;font-weight:300;color:var(--on-dark)">01</div>
+        <h4 style="margin:10px 0 6px">Models are finally ready</h4>
+        <p class="muted" style="font-size:.92rem;color:var(--on-dark-2)">AI can now read a paper and restructure it pedagogically — the capability didn't exist two years ago.</p>
+      </div>
+      <div>
+        <div style="font-family:var(--fd);font-size:2.4rem;font-weight:300;color:var(--on-dark)">02</div>
+        <h4 style="margin:10px 0 6px">The frontier is accelerating</h4>
+        <p class="muted" style="font-size:.92rem;color:var(--on-dark-2)">AI is speeding up discovery in every field — widening the gap between what's known and what's taught.</p>
+      </div>
+      <div>
+        <div style="font-family:var(--fd);font-size:2.4rem;font-weight:300;color:var(--on-dark)">03</div>
+        <h4 style="margin:10px 0 6px">The gap is now fixable</h4>
+        <p class="muted" style="font-size:.92rem;color:var(--on-dark-2)">For the first time, the distance between discovery and classroom is an engineering problem — not an economic law.</p>
+      </div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:56px">
+      <p style="font-family:var(--fd);font-style:italic;font-size:clamp(1.1rem,2.4vw,1.5rem);line-height:1.6;color:var(--on-dark);max-width:760px;margin:0 auto">
+        Every subject. Every level. Every language. The static textbook, reimagined as
+        <span class="cv-grad">curriculum that is never out of date.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="dark">
+  <div class="wrap" style="text-align:center;max-width:720px">
+    <span class="kicker teal"><span class="dot"></span> Get involved</span>
+    <h2 style="margin-top:10px">Help us bring the frontier to the classroom.</h2>
+    <p class="muted" style="color:var(--on-dark-2);line-height:1.8;margin-top:16px">
+      We're partnering with institutions, publishers, and educators — and talking with early investors who
+      see what a living curriculum makes possible. If you want to collaborate, pilot the engine, or join
+      the beta, we'd love to hear from you.
+    </p>
+    <div class="btn-row" style="justify-content:center;margin-top:28px">
+      <a href="https://artineerade.com/about/#contact" class="btn btn-metal btn-lg">Partner or invest →</a>
+      <a href="https://artineerade.com/about/#contact" class="btn btn-ghost btn-lg">Join the beta</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="https://artineerade.com/">artineer</a>
+        <p class="foot-tagline">Education for the Age of Entanglement.<br>Where identity leads learning.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="https://artineerade.com/school/">School</a>
+        <a href="/">cultigen.ai</a>
+        <a href="https://artineerade.com/workshop/">Workshop</a>
+        <a href="https://artineerade.com/art-study-abroad/">Art Study Abroad</a>
+        <a href="https://artineerade.com/events/">Events</a>
+        <a href="https://artineerade.com/kits/">Kits</a>
+        <a href="https://artineerade.com/shop/">Shop</a>
+      </div>
+      <div>
+        <h5>Research</h5>
+        <a href="https://artineerade.com/journal/">Interactives Journal</a>
+        <a href="https://artineerade.com/lab/">Research Lab</a>
+        <a href="https://artineerade.com/about/">About</a>
+        <a href="https://artineerade.com/glossary/">Glossary</a>
+      </div>
+      <div>
+        <h5>Connect</h5>
+        <a href="https://artineerade.com/about/#contact">Contact</a>
+        <a href="https://funguylab.com" target="_blank" rel="noopener">funguy.ai ↗</a>
+        <a href="https://interactives.pub" target="_blank" rel="noopener">interactives.pub ↗</a>
+        <a href="https://www.instagram.com/artineer_official/" target="_blank" rel="noopener">@artineer_official ↗</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin:16px 0 2px"><img loading="lazy" src="/assets/funguylab-sticker.svg" alt="FunguyLab™" style="height:36px;width:auto;opacity:.95"></div>
+    <div class="foot-bottom">
+      <span>© <span class="year">2026</span> artineer LLC</span>
+      <span>2810 N Church St #928688, Wilmington, DE 19802</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js" defer></script>
+</body>
+</html>
