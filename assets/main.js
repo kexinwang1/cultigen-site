@@ -172,7 +172,7 @@
      ENGINE DEMO
      ══════════════════════════════════════════════════════ */
   const PAPERS = [
-    {
+    { // 0 — frontier paper
       icon: '🧬',
       outputs: [
         { t: 'How proteins get their shape', p: 'A 5-lesson unit on amino acids, folding, and why 3-D shape decides what a molecule can do — pitched for grades 9–12.' },
@@ -180,20 +180,28 @@
         { t: 'Paper-model folding kit', p: 'Print-and-fold polypeptide chains with magnetic residues, so a class can build a protein by hand from its sequence.' },
       ],
     },
-    {
+    { // 1 — industry process
+      icon: '🔋',
+      outputs: [
+        { t: 'How a battery is really made', p: 'A unit on electrochemistry and energy storage — how ions shuttle between electrodes — grounded in how real gigafactory lines coat, stack, and seal a cell.' },
+        { t: 'Build-a-cell simulator', p: 'An interactive where students choose anode, cathode and electrolyte and watch capacity, safety and cost trade off against each other.' },
+        { t: 'Safe coin-cell kit', p: 'Assemble a working coin-cell by hand and measure its real charge/discharge curve — the factory process, shrunk to a desk.' },
+      ],
+    },
+    { // 2 — a product
+      icon: '☕',
+      outputs: [
+        { t: 'The physics of a shot', p: 'A unit on pressure, heat transfer and solubility — the science of extraction — reverse-engineered from a machine students use every day.' },
+        { t: 'Espresso extraction simulator', p: 'An interactive where students dial in grind, pressure and temperature and watch the shot — and the flavor — change in real time.' },
+        { t: 'See-through brew kit', p: 'A clear-chamber brewer that makes pressure and flow visible, so learners can watch extraction actually happen.' },
+      ],
+    },
+    { // 3 — frontier paper
       icon: '🍄',
       outputs: [
         { t: 'Rules that grow patterns', p: 'A unit on emergence: how simple local rules make complex, self-repairing patterns — bridging biology, math, and CS.' },
         { t: 'Grow-a-creature sandbox', p: 'A browser toy where students paint a seed, run the rules, damage the result, and watch it heal itself back.' },
         { t: 'Cellular-automata card game', p: 'A tabletop kit of rule cards and a grid mat where players "run" an automaton by hand, round by round.' },
-      ],
-    },
-    {
-      icon: '✂️',
-      outputs: [
-        { t: 'Rewriting a single letter', p: 'A unit on the DNA alphabet, point mutations, and how base editors change one letter without cutting the strand.' },
-        { t: 'DNA base-editor simulator', p: 'An interactive where students target a mutation, choose an editor, and see on-target vs. off-target effects play out.' },
-        { t: 'Bead-model DNA kit', p: 'A color-coded bead strand and swap-tool so learners physically perform a base edit and read the new codon.' },
       ],
     },
   ];
