@@ -64,7 +64,6 @@
   document.querySelectorAll('.year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
   /* ── Shared pointer state for the hero ────────────────── */
-  const heroSection = document.getElementById('top');
   // canvas-space mouse for spores; -9999 = "off screen"
   const pointer = { x: -9999, y: -9999, inside: false };
 
@@ -75,9 +74,9 @@
     let sy = 0, mx = 0, my = 0, raf = null;
     function apply() {
       if (heroArt) heroArt.style.transform = `translate3d(${mx}px, ${sy * 0.14 + my}px, 0)`;
-      // sunlight drifts opposite the cursor and toward it — feels like light stirring
+      // sunlight drifts with the cursor and can grow — feels like light stirring
       if (sunGlow) sunGlow.style.transform =
-        `translate(calc(-50% + ${mx * 2.4}px), calc(-50% + ${my * 2}px))`;
+        `translate(calc(-50% + ${mx * 3.6}px), calc(-50% + ${my * 3}px)) scale(var(--sun-scale,1))`;
       raf = null;
     }
     function schedule() { if (raf === null) raf = requestAnimationFrame(apply); }
@@ -85,11 +84,12 @@
     window.addEventListener('mousemove', e => {
       mx = (e.clientX / window.innerWidth - .5) * 16;
       my = (e.clientY / window.innerHeight - .5) * 10;
-      // brighten the sunlight as the cursor nears its upper-left home
+      // brighten + grow the sunlight as the cursor nears its home (≈46%/34%)
       if (sunGlow) {
-        const near = 1 - Math.min(1, Math.hypot(e.clientX / window.innerWidth - .28,
-                                                 e.clientY / window.innerHeight - .34) * 1.4);
-        sunGlow.style.setProperty('--sun-boost', (0.85 + near * 0.4).toFixed(3));
+        const near = 1 - Math.min(1, Math.hypot(e.clientX / window.innerWidth - .46,
+                                                 e.clientY / window.innerHeight - .34) * 1.3);
+        sunGlow.style.setProperty('--sun-boost', (0.8 + near * 0.55).toFixed(3));
+        sunGlow.style.setProperty('--sun-scale', (1 + near * 0.18).toFixed(3));
       }
       schedule();
     }, { passive: true });
