@@ -131,24 +131,21 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
    HERO — the painted valley
    ============================================================ */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;
-  padding:120px 0 200px;overflow:hidden;
-  background:linear-gradient(180deg,var(--sky-hi) 0%,var(--sky-mid) 34%,var(--sky-low) 62%,var(--dawn) 100%);
+  padding:120px 0 140px;overflow:hidden;background:var(--cream);
 }
-/* sun glow */
-.hero-sun{position:absolute;top:12%;right:14%;width:min(46vw,460px);aspect-ratio:1;
-  background:radial-gradient(circle,var(--sun) 0%,rgba(252,233,184,.6) 32%,rgba(252,233,184,0) 70%);
-  border-radius:50%;z-index:0;animation:sunpulse 9s ease-in-out infinite}
-.hero-sun::after{content:"";position:absolute;inset:32%;border-radius:50%;
-  background:radial-gradient(circle,#fff8e2,#fbe6a8);box-shadow:0 0 70px 30px rgba(252,233,184,.7)}
-@keyframes sunpulse{0%,100%{transform:scale(1);opacity:.95}50%{transform:scale(1.06);opacity:1}}
-
-/* cloud layer */
-.clouds{position:absolute;inset:0;z-index:1;pointer-events:none}
-.cloud{position:absolute;fill:#fff;opacity:.92;filter:drop-shadow(0 12px 18px rgba(120,140,160,.18))}
-
-/* rolling hill layers */
-.hills{position:absolute;left:0;right:0;bottom:0;z-index:2;pointer-events:none}
-.hills svg{width:100%;height:auto;display:block}
+/* illustrated art layer — outer gets JS parallax, inner does Ken Burns */
+.hero-art{position:absolute;inset:-6%;z-index:0;will-change:transform}
+.hero-art-img{position:absolute;inset:0;
+  background-image:url(/assets/hero.jpg);
+  background-image:image-set(url(/assets/hero.webp) type("image/webp"),url(/assets/hero.jpg) type("image/jpeg"));
+  background-size:cover;background-position:center 42%;background-repeat:no-repeat;
+  animation:kenburns 28s ease-in-out infinite alternate;will-change:transform}
+@keyframes kenburns{from{transform:scale(1.04)}to{transform:scale(1.12)}}
+/* legibility scrim + bottom fade into the cream page */
+.hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(105deg,rgba(251,245,230,.9) 0%,rgba(251,245,230,.55) 28%,rgba(251,245,230,0) 56%),
+    linear-gradient(0deg,var(--cream) 1%,rgba(251,245,230,0) 18%)}
 
 /* floating spores */
 .spores{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}

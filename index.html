@@ -78,24 +78,10 @@
 
 <!-- ═══ HERO — the painted valley ═══ -->
 <section class="hero" id="top">
-  <div class="hero-sun" aria-hidden="true"></div>
-
-  <!-- clouds -->
-  <div class="clouds" aria-hidden="true">
-    <svg class="cloud" data-speed="18" style="top:16%;left:-12%;width:230px" viewBox="0 0 200 90"><path d="M40 70Q10 70 12 48Q14 30 36 32Q40 10 66 14Q82 -2 104 12Q128 6 132 30Q160 28 160 50Q162 70 134 70Z"/></svg>
-    <svg class="cloud" data-speed="30" style="top:26%;left:-20%;width:150px;opacity:.8" viewBox="0 0 200 90"><path d="M40 70Q10 70 12 48Q14 30 36 32Q40 10 66 14Q82 -2 104 12Q128 6 132 30Q160 28 160 50Q162 70 134 70Z"/></svg>
-    <svg class="cloud" data-speed="12" style="top:8%;left:-30%;width:300px;opacity:.7" viewBox="0 0 200 90"><path d="M40 70Q10 70 12 48Q14 30 36 32Q40 10 66 14Q82 -2 104 12Q128 6 132 30Q160 28 160 50Q162 70 134 70Z"/></svg>
-  </div>
-
-  <!-- rolling hills -->
-  <div class="hills" aria-hidden="true">
-    <svg viewBox="0 0 1440 420" preserveAspectRatio="none">
-      <path data-hill="1" fill="#a9c47a" d="M0 250 Q240 180 480 220 T960 210 T1440 230 L1440 420 L0 420 Z"/>
-      <path data-hill="2" fill="#7ba455" d="M0 300 Q300 240 600 285 T1200 275 T1440 300 L1440 420 L0 420 Z"/>
-      <path data-hill="3" fill="#4f7c3e" d="M0 350 Q360 320 720 350 T1440 345 L1440 420 L0 420 Z"/>
-      <path data-hill="4" fill="#37613a" d="M0 388 Q420 366 840 388 T1440 384 L1440 420 L0 420 Z"/>
-    </svg>
-  </div>
+  <!-- illustrated hero art (Ken Burns + parallax via JS) -->
+  <div class="hero-art" aria-hidden="true"><div class="hero-art-img"></div></div>
+  <!-- soft scrim keeps the headline legible + fades into the page below -->
+  <div class="hero-scrim" aria-hidden="true"></div>
 
   <!-- floating spores (populated by JS) -->
   <div class="spores" id="spores" aria-hidden="true"></div>

@@ -81,30 +81,20 @@
     }
   }
 
-  /* ── Parallax: clouds drift + hills shift on scroll ───── */
-  if (!reduce) {
-    const clouds = Array.from(document.querySelectorAll('.cloud'));
-    let t0 = null;
-    function drift(ts) {
-      if (t0 === null) t0 = ts;
-      const el = (ts - t0) / 1000;
-      clouds.forEach(c => {
-        const speed = parseFloat(c.dataset.speed) || 20;   // px / s
-        const w = window.innerWidth + 400;
-        const x = (el * speed) % w;
-        c.style.transform = `translateX(${x}px)`;
-      });
-      requestAnimationFrame(drift);
+  /* ── Parallax: illustrated hero art (scroll + mouse) ──── */
+  const heroArt = document.querySelector('.hero-art');
+  if (heroArt && !reduce) {
+    let sy = 0, mx = 0, my = 0, raf = null;
+    function apply() {
+      heroArt.style.transform = `translate3d(${mx}px, ${sy * 0.14 + my}px, 0)`;
+      raf = null;
     }
-    requestAnimationFrame(drift);
-
-    const hillEls = Array.from(document.querySelectorAll('[data-hill]'));
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      hillEls.forEach(h => {
-        const depth = parseInt(h.dataset.hill, 10);
-        h.setAttribute('transform', `translate(0 ${y * depth * 0.03})`);
-      });
+    function schedule() { if (raf === null) raf = requestAnimationFrame(apply); }
+    window.addEventListener('scroll', () => { sy = window.scrollY; schedule(); }, { passive: true });
+    window.addEventListener('mousemove', e => {
+      mx = (e.clientX / window.innerWidth - .5) * 16;
+      my = (e.clientY / window.innerHeight - .5) * 10;
+      schedule();
     }, { passive: true });
   }
 
