@@ -93,7 +93,8 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
    ============================================================ */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .4s var(--ease)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
-.brand{font-family:var(--fd);font-weight:600;font-size:1.35rem;letter-spacing:-.02em;color:var(--ink)}
+.brand{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);font-weight:600;font-size:1.35rem;letter-spacing:-.02em;color:var(--ink)}
+.brand .logo-mark{height:32px;width:32px;flex:none;filter:drop-shadow(0 1px 3px rgba(59,53,42,.15))}
 .nav.on-dark .brand,.nav.on-dark .nav-links a{color:var(--ink);text-shadow:0 1px 8px rgba(255,255,255,.5)}
 .nav-links{display:flex;gap:26px;align-items:center}
 .nav-links a{font-size:.92rem;font-weight:700;color:var(--ink-2);transition:color .2s}
@@ -347,8 +348,9 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
    ============================================================ */
 .site-foot{background:linear-gradient(180deg,var(--night-2),#141d17);color:var(--on-dark-2);
   padding:70px 0 34px;position:relative}
-.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:34px}
 .foot-brand .brand{color:var(--on-dark)}
+.foot-wordmark{height:74px;width:auto;margin-bottom:4px}
 .foot-tag{margin-top:12px;font-size:.92rem;color:var(--on-dark-3);max-width:260px;line-height:1.6}
 .site-foot h5{font-family:var(--fm);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
   color:var(--grass-hi);margin-bottom:14px}
