@@ -80,11 +80,13 @@
 <section class="hero" id="top">
   <!-- illustrated hero art (Ken Burns + parallax via JS) -->
   <div class="hero-art" aria-hidden="true"><div class="hero-art-img"></div></div>
+  <!-- interactive sunlight (moves & brightens with the cursor) -->
+  <div class="hero-sun-glow" id="hero-sun-glow" aria-hidden="true"><span class="hero-sun-core"></span></div>
   <!-- soft scrim keeps the headline legible + fades into the page below -->
   <div class="hero-scrim" aria-hidden="true"></div>
 
-  <!-- floating spores (populated by JS) -->
-  <div class="spores" id="spores" aria-hidden="true"></div>
+  <!-- interactive light points (canvas, drawn + repelled by the cursor) -->
+  <canvas class="spores" id="spore-canvas" aria-hidden="true"></canvas>
 
   <div class="wrap">
     <div class="hero-inner">

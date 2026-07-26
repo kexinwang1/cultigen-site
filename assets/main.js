@@ -63,30 +63,21 @@
   /* ── Year ─────────────────────────────────────────────── */
   document.querySelectorAll('.year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
-  /* ── Floating spores in the hero ──────────────────────── */
-  const sporeBox = document.getElementById('spores');
-  if (sporeBox && !reduce) {
-    const N = window.innerWidth < 700 ? 14 : 26;
-    for (let i = 0; i < N; i++) {
-      const s = document.createElement('span');
-      s.className = 'spore';
-      const size = 3 + Math.random() * 7;
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
-      s.style.left = (Math.random() * 100) + '%';
-      s.style.setProperty('--drift', (Math.random() * 120 - 60) + 'px');
-      s.style.animationDuration = (14 + Math.random() * 16) + 's';
-      s.style.animationDelay = (-Math.random() * 20) + 's';
-      sporeBox.appendChild(s);
-    }
-  }
+  /* ── Shared pointer state for the hero ────────────────── */
+  const heroSection = document.getElementById('top');
+  // canvas-space mouse for spores; -9999 = "off screen"
+  const pointer = { x: -9999, y: -9999, inside: false };
 
-  /* ── Parallax: illustrated hero art (scroll + mouse) ──── */
+  /* ── Parallax: hero art + interactive sunlight (mouse) ── */
   const heroArt = document.querySelector('.hero-art');
-  if (heroArt && !reduce) {
+  const sunGlow = document.getElementById('hero-sun-glow');
+  if (!reduce && (heroArt || sunGlow)) {
     let sy = 0, mx = 0, my = 0, raf = null;
     function apply() {
-      heroArt.style.transform = `translate3d(${mx}px, ${sy * 0.14 + my}px, 0)`;
+      if (heroArt) heroArt.style.transform = `translate3d(${mx}px, ${sy * 0.14 + my}px, 0)`;
+      // sunlight drifts opposite the cursor and toward it — feels like light stirring
+      if (sunGlow) sunGlow.style.transform =
+        `translate(calc(-50% + ${mx * 2.4}px), calc(-50% + ${my * 2}px))`;
       raf = null;
     }
     function schedule() { if (raf === null) raf = requestAnimationFrame(apply); }
@@ -94,8 +85,87 @@
     window.addEventListener('mousemove', e => {
       mx = (e.clientX / window.innerWidth - .5) * 16;
       my = (e.clientY / window.innerHeight - .5) * 10;
+      // brighten the sunlight as the cursor nears its upper-left home
+      if (sunGlow) {
+        const near = 1 - Math.min(1, Math.hypot(e.clientX / window.innerWidth - .28,
+                                                 e.clientY / window.innerHeight - .34) * 1.4);
+        sunGlow.style.setProperty('--sun-boost', (0.85 + near * 0.4).toFixed(3));
+      }
       schedule();
     }, { passive: true });
+  }
+
+  /* ── Interactive light points (spores) on canvas ──────── */
+  const canvas = document.getElementById('spore-canvas');
+  if (canvas && !reduce) {
+    const ctx = canvas.getContext('2d');
+
+    // pre-rendered soft glow sprite (fast to blit each frame)
+    const S = 40, sprite = document.createElement('canvas');
+    sprite.width = sprite.height = S;
+    const sc = sprite.getContext('2d');
+    const sg = sc.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2);
+    sg.addColorStop(0, 'rgba(255,251,226,1)');
+    sg.addColorStop(0.35, 'rgba(255,244,206,0.55)');
+    sg.addColorStop(1, 'rgba(255,244,206,0)');
+    sc.fillStyle = sg; sc.fillRect(0, 0, S, S);
+
+    let W = 0, H = 0, dpr = 1, parts = [];
+    function mk(fromBottom) {
+      return {
+        x: Math.random() * W,
+        y: fromBottom ? H + Math.random() * 40 : Math.random() * H,
+        r: 1 + Math.random() * 3,
+        vy: 0.12 + Math.random() * 0.4,
+        ph: Math.random() * Math.PI * 2,
+        ps: 0.004 + Math.random() * 0.01,
+        amp: 0.15 + Math.random() * 0.7,
+        a: 0.35 + Math.random() * 0.6
+      };
+    }
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = canvas.clientWidth; H = canvas.clientHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = Math.max(16, Math.round(W / 42));
+      parts = Array.from({ length: target }, () => mk(false));
+    }
+    function tick() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      const R = 130;
+      for (const p of parts) {
+        if (pointer.inside) {              // cursor repels nearby points
+          const dx = p.x - pointer.x, dy = p.y - pointer.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < R * R) {
+            const d = Math.sqrt(d2) || 1, f = (1 - d / R) * 2.6;
+            p.x += (dx / d) * f; p.y += (dy / d) * f;
+          }
+        }
+        p.ph += p.ps;
+        p.x += Math.sin(p.ph) * p.amp;
+        p.y -= p.vy;
+        if (p.y < -12) Object.assign(p, mk(true));
+        if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12;
+        const s = p.r * 6;
+        ctx.globalAlpha = p.a;
+        ctx.drawImage(sprite, p.x - s / 2, p.y - s / 2, s, s);
+      }
+      ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+      requestAnimationFrame(tick);
+    }
+    function onMove(e) {
+      const r = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - r.left;
+      pointer.y = e.clientY - r.top;
+      pointer.inside = pointer.y >= 0 && pointer.y <= r.height;
+    }
+    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mouseout', () => { pointer.inside = false; }, { passive: true });
+    window.addEventListener('resize', resize, { passive: true });
+    resize(); requestAnimationFrame(tick);
   }
 
   /* ══════════════════════════════════════════════════════
