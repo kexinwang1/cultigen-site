@@ -268,6 +268,12 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
 .ic.moss{background:linear-gradient(135deg,#dcecc0,#b3d189);color:var(--forest-dk)}
 .ic.sky{background:linear-gradient(135deg,#cfe8f2,#a5d0e6);color:var(--sky-blue)}
 .ic.gold{background:linear-gradient(135deg,#fce9b0,#f0c552);color:#b07d18}
+/* hand-drawn line icons (sprite) */
+.i{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.pc-ic{color:var(--forest-dk)}
+.pc-ic .i{width:22px;height:22px}
+.oc-ic{color:var(--coral-2)}
+.oc-ic .i{width:26px;height:26px}
 
 /* stat tiles */
 .stat{padding:26px 22px;background:var(--night-card);border:1.5px solid var(--night-bd);border-radius:var(--r)}
