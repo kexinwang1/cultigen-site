@@ -177,6 +177,12 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
 .founder-sign .fn{display:block;font-family:var(--fd);font-weight:700;color:var(--ink);line-height:1.2}
 .founder-sign .ft{display:block;font-size:.85rem;color:var(--ink-2)}
 
+/* FAQ */
+.faq{border-top:1.5px solid var(--paper-line)}
+.faq-item{padding:22px 2px;border-bottom:1.5px solid var(--paper-line)}
+.faq-item h3{font-size:1.12rem;margin-bottom:8px;color:var(--ink)}
+.faq-item p{color:var(--ink-2);line-height:1.7}
+
 /* interactive light points (canvas) */
 .spores{position:absolute;inset:0;z-index:3;pointer-events:none;display:block;width:100%;height:100%}
 .spore{position:absolute;bottom:-10px;border-radius:50%;

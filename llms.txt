@@ -1,0 +1,20 @@
+# Cultigen
+
+> Cultigen is an AI platform that helps educators — from K-12 to universities — keep their curricula on the frontier: diagnosing what to teach, coaching faculty, giving course-development teams AI tools, and turning frontier research (or a real industry process or product) into lessons, interactives, and buildable kits.
+
+## What Cultigen does
+- **Diagnose & manage the curriculum**: map every department's courses and pinpoint what to add, cut, or revise so programs stay frontier, differentiated, and aligned with workforce needs.
+- **Coach faculty**: turn course design — historically a tacit craft — into guided, accelerated steps, with AI coaching and ready-to-use materials.
+- **Power course teams**: AI tools that speed up course design and iteration, diagnose existing courses, and tailor materials to a school's actual students.
+- **Make hands-on kits buildable**: design and mass-produce the hands-on kits a course needs, affordably and customizably.
+
+## Key facts
+- **Who it's for**: institutions and academic leaders, faculty and course-development teams, and students — from K-12 districts to university departments.
+- **Sources it turns into courses**: a frontier research paper, an industry process, or a real product — each becomes learnable content, a working interactive, and a buildable kit.
+- **Proof / first product**: FunguyLab, a bioprinter that uses light and AI to grow living fungi into designed forms; a hands-on kit adopted by universities and community labs, published at SIGGRAPH.
+- **Thesis**: schools are not obsolete in the AI age — they have irreplaceable value; what needs fixing is the quality of the course.
+- **Contact**: cultigen.ai@artineerade.com
+
+## Links
+- Website: https://cultigen.ai/
+- FunguyLab (first product): https://funguylab.com

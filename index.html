@@ -15,7 +15,7 @@
 <meta name="description" content="Cultigen is an AI platform that helps educators — from K-12 to universities — keep curricula on the frontier: diagnosing what to teach, coaching faculty, accelerating course design, and making hands-on kits buildable and affordable." />
 <meta name="author" content="Kexin Wang" />
 <meta name="keywords" content="AI curriculum engine, curriculum diagnostics, higher education AI, faculty development AI, course design tools, STEAM kit manufacturing, workforce-aligned curriculum, edtech AI, K-12 to university" />
-<meta name="robots" content="index, follow" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="style" href="/assets/styles.css" />
@@ -28,20 +28,82 @@
 <meta property="og:url" content="https://cultigen.ai/" />
 <meta property="og:title" content="Cultigen — AI Curriculum Engine" />
 <meta property="og:description" content="An AI platform that helps educators from K-12 to universities keep curricula on the frontier — diagnosing what to teach, coaching faculty, accelerating course design, and making hands-on kits buildable." />
+<meta property="og:image" content="https://cultigen.ai/assets/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Cultigen — a retro-futurist campus in a Ghibli-style illustrated valley" />
+<meta property="og:locale" content="en_US" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Cultigen — AI Curriculum Engine" />
 <meta name="twitter:description" content="Keep your curriculum on the frontier — from K-12 to the university lecture hall." />
+<meta name="twitter:image" content="https://cultigen.ai/assets/og.jpg" />
+<meta name="twitter:image:alt" content="Cultigen — an AI curriculum engine" />
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "Cultigen",
-  "applicationCategory": "EducationalApplication",
-  "description": "Cultigen is an AI platform that helps educational institutions — from K-12 to universities — keep their curricula on the frontier: diagnosing which courses to add, cut, or revise; coaching faculty to teach more effectively; giving course-development teams AI tools; and making hands-on kits buildable and affordable.",
-  "brand": { "@type": "Brand", "name": "Cultigen" },
-  "url": "https://cultigen.ai/",
-  "keywords": ["AI curriculum engine","curriculum diagnostics","faculty development","course design tools","STEAM kit manufacturing"]
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://cultigen.ai/#org",
+      "name": "Cultigen",
+      "url": "https://cultigen.ai/",
+      "logo": "https://cultigen.ai/assets/logo-mark.svg",
+      "email": "cultigen.ai@artineerade.com",
+      "founder": { "@type": "Person", "name": "Kexin Wang" },
+      "description": "Cultigen is an AI platform that helps educators — from K-12 to universities — keep their curricula on the frontier.",
+      "sameAs": ["https://funguylab.com"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://cultigen.ai/#website",
+      "name": "Cultigen",
+      "url": "https://cultigen.ai/",
+      "publisher": { "@id": "https://cultigen.ai/#org" },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Cultigen",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "url": "https://cultigen.ai/",
+      "publisher": { "@id": "https://cultigen.ai/#org" },
+      "description": "An AI platform that diagnoses which courses to add, cut, or revise; coaches faculty; gives course-development teams AI tools; and turns frontier research, an industry process, or a real product into learnable content, a working interactive, and a buildable kit.",
+      "offers": { "@type": "Offer", "availability": "https://schema.org/PreOrder", "price": "0", "priceCurrency": "USD" },
+      "keywords": ["AI curriculum engine","curriculum diagnostics","faculty development","course design tools","STEAM kit manufacturing"]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Cultigen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cultigen is an AI platform that helps educators — from K-12 to universities — keep their curricula on the frontier. It diagnoses what to teach, coaches faculty, gives course-development teams AI tools, and turns frontier research, an industry process, or a real product into lessons, interactives, and buildable kits." }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is Cultigen for?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Institutions and academic leaders, faculty and course-development teams, and students — from K-12 districts to university departments." }
+        },
+        {
+          "@type": "Question",
+          "name": "What can Cultigen turn into a course?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A frontier research paper, an industry process, or a real product. Cultigen turns any of them into learnable content, a working interactive, and a buildable hands-on kit." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is FunguyLab?",
+          "acceptedAnswer": { "@type": "Answer", "text": "FunguyLab is a bioprinter that uses light and AI to grow living fungi into designed forms — a hands-on kit adopted by universities and community labs, published at SIGGRAPH, and proof that Cultigen's kits ship." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AI make schools obsolete?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Cultigen's view is that schools have powerful, irreplaceable value; what needs fixing is the quality of the course." }
+        }
+      ]
+    }
+  ]
 }
 </script>
 </head>
@@ -584,6 +646,45 @@
   </div>
 </section>
 
+<!-- ═══ FAQ ═══ -->
+<section class="sec-cream" id="faq">
+  <div class="wrap" style="max-width:840px">
+    <div class="shead center">
+      <h2>Questions, answered.</h2>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-item">
+        <h3>What is Cultigen?</h3>
+        <p>Cultigen is an AI platform that helps educators — from K-12 to universities — keep their
+          curricula on the frontier. It diagnoses what to teach, coaches faculty, gives course-development
+          teams AI tools, and turns frontier research, an industry process, or a real product into lessons,
+          interactives, and buildable kits.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Who is Cultigen for?</h3>
+        <p>Institutions and academic leaders, faculty and course-development teams, and students — from
+          K-12 districts to university departments.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What can Cultigen turn into a course?</h3>
+        <p>A frontier research paper, an industry process, or a real product. Cultigen turns any of them
+          into learnable content, a working interactive, and a buildable hands-on kit.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is FunguyLab?</h3>
+        <p>FunguyLab is a bioprinter that uses light and AI to grow living fungi into designed forms — a
+          hands-on kit adopted by universities and community labs, published at SIGGRAPH, and proof that
+          Cultigen's kits ship.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does AI make schools obsolete?</h3>
+        <p>No. Cultigen's view is that schools have powerful, irreplaceable value; what needs fixing is the
+          quality of the course.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ CTA ═══ -->
 <section class="sec-forest" id="contact">
   <div class="wrap" style="text-align:center;max-width:720px;margin-inline:auto">
@@ -618,6 +719,7 @@
         <a href="#who">Who it's for</a>
         <a href="#stakes">Why it matters</a>
         <a href="#story">Story</a>
+        <a href="#faq">FAQ</a>
       </div>
       <div>
         <h5>Connect</h5>
