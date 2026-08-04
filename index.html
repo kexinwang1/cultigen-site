@@ -66,7 +66,10 @@
   .fh-logo{ display:inline-flex; align-items:center; gap:13px; text-decoration:none; color:var(--fh-ink); margin:0 0 4px; white-space:nowrap; }
   .fh-logo img{ width:46px; height:46px; }
   .fh-logo span{ font-family:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-    font-weight:600; font-size:clamp(1.8rem,3.6vw,2.5rem); letter-spacing:-.01em; }
+    font-weight:600; font-size:clamp(1.8rem,3.6vw,2.5rem); letter-spacing:-.01em;
+    background:linear-gradient(105deg,#1fbf63 0%,#46c95c 24%,#9b6bff 92%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent; }
   .fh-bt{ display:flex; flex-direction:column; line-height:1.15 }
   .fh-bt small{ font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.16em;
     text-transform:uppercase; color:var(--fh-soft) }
