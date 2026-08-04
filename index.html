@@ -79,6 +79,7 @@
   .fh-note{ position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
     font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.14em;
     text-transform:uppercase; color:var(--fh-soft); white-space:nowrap; }
+  .fh-fx{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:30; }
   .fh-hint{ position:absolute; top:8px; right:10px; font-family:ui-monospace,Menlo,monospace;
     font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--fh-soft);
     opacity:.7; pointer-events:none; }
@@ -231,6 +232,7 @@
       <span class="fh-note">one source → lesson · interactive · kit</span>
     </button>
   </div>
+  <canvas class="fh-fx" id="fh-fx" aria-hidden="true"></canvas>
 </section>
 
 <!-- course-sketch modal -->
@@ -450,6 +452,62 @@
     t++; draw();
   }
   if(reduce){ phase=0.7; glowP=.3; draw(); } else setInterval(loop,100);
+})();
+</script>
+<script>
+/* hover "Join our workshops" → pixel stick-figures fly out (home only) */
+(function(){
+  const cvs=document.getElementById('fh-fx'), cta=document.querySelector('.fh-cta'),
+        hero=document.querySelector('.fh-hero');
+  if(!cvs || !cta || !hero) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const ctx=cvs.getContext('2d');
+  let W=0,H=0,dpr=1;
+  function resize(){ dpr=Math.min(devicePixelRatio||1,2); W=hero.clientWidth; H=hero.clientHeight;
+    cvs.width=W*dpr; cvs.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  resize(); addEventListener('resize', resize);
+
+  const hg=getComputedStyle(hero);
+  const COLORS=[ hg.getPropertyValue('--fh-glow').trim()||'#9b6bff', '#c49bff',
+                 hg.getPropertyValue('--fh-ink').trim()||'#241d15',
+                 hg.getPropertyValue('--fh-d-warm').trim()||'#f2b34e' ];
+
+  const parts=[]; let raf=null, stream=null;
+  function fig(px,py,u,frame,col){
+    ctx.fillStyle=col; const fx=px-3*u, fy=py-3.5*u;
+    const R=(a,b,w,h)=>ctx.fillRect(Math.round(fx+a*u), Math.round(fy+b*u), w*u, h*u);
+    R(2,0,2,2); R(2,2,2,3);                       // head + torso
+    if(frame===0){ R(1,1,1,1); R(0,0,1,1); R(4,1,1,1); R(5,0,1,1); R(2,5,1,2); R(3,5,1,2); }
+    else { R(0,3,2,1); R(4,3,2,1); R(1,5,1,2); R(4,5,1,2); }
+  }
+  function spawn(n){
+    const r=cta.getBoundingClientRect(), h=hero.getBoundingClientRect();
+    const ox=r.left-h.left+r.width*(0.15+Math.random()*0.7), oy=r.top-h.top+r.height*0.45;
+    for(let i=0;i<n;i++){
+      const ang=-Math.PI/2+(Math.random()-0.5)*1.6, sp=3+Math.random()*5.5;
+      parts.push({ x:ox, y:oy, vx:Math.cos(ang)*sp, vy:Math.sin(ang)*sp,
+        u:2+Math.floor(Math.random()*2), col:COLORS[(Math.random()*COLORS.length)|0],
+        life:70+Math.random()*45, t:(Math.random()*16)|0 });
+    }
+    if(parts.length>150) parts.splice(0, parts.length-150);
+    if(!raf) raf=requestAnimationFrame(loop);
+  }
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=parts.length-1;i>=0;i--){
+      const p=parts[i]; p.t++; p.life--;
+      p.vy+=0.16; p.x+=p.vx; p.y+=p.vy; p.vx*=0.99;
+      if(p.life<=0 || p.y>H+40){ parts.splice(i,1); continue; }
+      ctx.globalAlpha=Math.min(1, p.life/18);
+      fig(p.x, p.y, p.u, (p.t>>3)&1, p.col);
+    }
+    ctx.globalAlpha=1;
+    raf = parts.length ? requestAnimationFrame(loop) : null;
+  }
+  cta.addEventListener('mouseenter', ()=>{ clearInterval(stream); spawn(18); stream=setInterval(()=>spawn(3),130); });
+  cta.addEventListener('mouseleave', ()=>{ clearInterval(stream); stream=null; });
+  cta.addEventListener('focus', ()=> spawn(16));
+  cta.addEventListener('blur', ()=>{ clearInterval(stream); stream=null; });
 })();
 </script>
 <script src="/assets/main.js" defer></script>
