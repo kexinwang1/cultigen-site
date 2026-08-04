@@ -58,6 +58,9 @@
   .wk-course img{ width:20px; height:20px; border-radius:5px; }
   .wk-venue{ font-size:.86rem; color:color-mix(in srgb,var(--ink) 76%,transparent); margin-bottom:12px; }
   .wk-venue b{ color:var(--ink); }
+  .wk-venue a{ text-decoration:none; }
+  .wk-venue a b{ color:var(--coral-2,#7d51e0); border-bottom:1.5px solid color-mix(in srgb,#7d51e0 40%,transparent); }
+  .wk-venue a:hover b{ border-bottom-color:#7d51e0; }
   .wk-status{ display:inline-flex; align-items:center; gap:7px; font-family:var(--fm,ui-monospace,Menlo,monospace);
     font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); margin-bottom:14px; }
   .wk-dot{ width:7px; height:7px; border-radius:50%; background:var(--warm); box-shadow:0 0 0 3px color-mix(in srgb,var(--warm) 30%,transparent); }
@@ -129,9 +132,9 @@
 (function(){
   const BRANDS = { funguylab:{ name:'FunguyLab', avatar:'/assets/funguylab-avatar.png' } };
   const NODES = [
-    { course:'funguylab', city:'New York',      region:'USA · New York',      venue:'Genspace', status:'forming' },
-    { course:'funguylab', city:'Baltimore',     region:'USA · Maryland',      venue:'BUGSS',    status:'forming' },
-    { course:'funguylab', city:'Shanghai',      region:'China',               venue:'MANA',     status:'forming' },
+    { course:'funguylab', city:'New York',      region:'USA · New York',      venue:'Genspace', venueUrl:'https://www.genspace.org/', status:'forming' },
+    { course:'funguylab', city:'Baltimore',     region:'USA · Maryland',      venue:'BUGSS',    venueUrl:'https://www.bugss.org/',    status:'forming' },
+    { course:'funguylab', city:'Shanghai',      region:'China',               venue:'MANA',     venueUrl:'https://www.manamana.net/', status:'forming' },
     { course:'funguylab', city:'Boston',        region:'USA · Massachusetts', status:'forming' },
     { course:'funguylab', city:'San Francisco', region:'USA · California',     status:'forming' },
     { course:'funguylab', city:'London',        region:'United Kingdom',       status:'forming' },
@@ -179,7 +182,9 @@
         + '<h2 class="wk-city">'+esc(n.city)+'</h2>'
         + '<p class="wk-region">'+esc(n.region)+'</p>'
         + '<span class="wk-course"><img src="'+b.avatar+'" alt="" width="20" height="20">'+esc(b.name)+'</span>'
-        + (n.venue ? '<p class="wk-venue">Hosted at <b>'+esc(n.venue)+'</b></p>' : '')
+        + (n.venue ? '<p class="wk-venue">Hosted at '+(n.venueUrl
+              ? '<a href="'+n.venueUrl+'" target="_blank" rel="noopener"><b>'+esc(n.venue)+' ↗</b></a>'
+              : '<b>'+esc(n.venue)+'</b>')+'</p>' : '')
         + '<span class="wk-status"><span class="wk-dot"></span>'+s.label+'</span>'
         + '<a class="wk-join" href="'+mail(n)+'">'+s.cta+'</a>'
         + '</article>';

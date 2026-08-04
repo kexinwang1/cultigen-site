@@ -31,6 +31,7 @@
   .frame::after{ content:""; position:absolute; inset:3px; border:1px solid rgba(60,44,22,.12); pointer-events:none; }
   .frame img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover;
     image-rendering:auto; -webkit-user-drag:none; background:#efe6d3; }
+  .frame img.fit-contain{ object-fit:contain; }
   .frame .cap{ display:block; margin-top:6px; font-family:var(--fm,ui-monospace,Menlo,monospace);
     font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; color:#6f6350; text-align:center; }
   .frame .poster-face{ aspect-ratio:1/1; display:flex; flex-direction:column; justify-content:center;
@@ -88,7 +89,7 @@
       <figcaption class="cap">reEarth Jury Choice · 2025</figcaption>
     </figure>
     <figure class="frame" style="left:44%;top:0%;--rot:-3deg">
-      <img src="https://funguylab.com/assets/photos/hackaday.jpg" alt="FunguyLab on Hackaday" loading="lazy">
+      <img class="fit-contain" src="https://funguylab.com/assets/photos/hackaday.jpg" alt="FunguyLab on Hackaday" loading="lazy">
       <figcaption class="cap">Featured on Hackaday</figcaption>
     </figure>
     <figure class="frame" style="left:66%;top:2%;--rot:4deg">
@@ -96,7 +97,7 @@
       <figcaption class="cap">MIT ACT · The Cube</figcaption>
     </figure>
     <figure class="frame" style="left:86%;top:1%;--rot:-5deg">
-      <img src="https://funguylab.com/assets/photos/biofab2.jpg" alt="FunguyLab at BioFabricate" loading="lazy">
+      <img class="fit-contain" src="https://funguylab.com/assets/photos/biofab2.jpg" alt="FunguyLab at BioFabricate" loading="lazy">
       <figcaption class="cap">BioFabricate Summit</figcaption>
     </figure>
     <figure class="frame" style="left:10%;top:33%;--rot:5deg">
@@ -112,7 +113,7 @@
       <figcaption class="cap">BUGSS Science Slam · 2026</figcaption>
     </figure>
     <figure class="frame" style="left:78%;top:35%;--rot:-5deg">
-      <img src="https://funguylab.com/assets/photos/csc-logo.jpg" alt="Cambridge Science Carnival" loading="lazy">
+      <img src="/assets/csc-opencall.jpg" alt="Cambridge Science Carnival open call" loading="lazy">
       <figcaption class="cap">Cambridge Science Carnival</figcaption>
     </figure>
     <figure class="frame" style="left:2%;top:66%;--rot:4deg">
