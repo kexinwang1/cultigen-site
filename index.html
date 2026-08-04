@@ -83,6 +83,9 @@
   .fh-stage:focus-visible{ outline:2px solid var(--fh-glow); outline-offset:6px; border-radius:12px }
   .fh-stage canvas{ width:100%; height:100%; image-rendering:pixelated;
     filter:drop-shadow(6px 10px 10px var(--fh-shadow)); }
+  .fh-right{ position:relative; display:grid; place-items:center; width:100%; }
+  .fh-map{ position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+  .fh-right .fh-stage{ position:relative; z-index:1; }
   .fh-note{ position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
     font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.14em;
     text-transform:uppercase; color:var(--fh-soft); white-space:nowrap; }
@@ -242,11 +245,14 @@
         </a>
       </div>
     </div>
-    <button class="fh-stage" id="fh-stage" aria-label="Try the engine: sketch a course from a link or a PDF">
-      <canvas id="fh-scene" width="160" height="160"></canvas>
-      <span class="fh-hint">click to try ↯</span>
-      <span class="fh-note">one source → lesson · interactive · kit</span>
-    </button>
+    <div class="fh-right">
+      <canvas class="fh-map" id="fh-map" aria-hidden="true"></canvas>
+      <button class="fh-stage" id="fh-stage" aria-label="Try the engine: sketch a course from a link or a PDF">
+        <canvas id="fh-scene" width="160" height="160"></canvas>
+        <span class="fh-hint">click to try ↯</span>
+        <span class="fh-note">one source → lesson · interactive · kit</span>
+      </button>
+    </div>
   </div>
   <canvas class="fh-fx" id="fh-fx" aria-hidden="true"></canvas>
 </section>
@@ -512,6 +518,60 @@
   cta.addEventListener('mouseleave', ()=>{ clearInterval(stream); stream=null; });
   cta.addEventListener('focus', ()=> spawn(16));
   cta.addEventListener('blur', ()=>{ clearInterval(stream); stream=null; });
+})();
+</script>
+<script>
+/* pixel world map behind the engine — courses flow out to global nodes (home) */
+(function(){
+  const cv=document.getElementById('fh-map'); if(!cv) return;
+  const ctx=cv.getContext('2d');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W=0,H=0,dpr=1,y0=0,mapH=0,dots=[];
+  /* rough continent ellipses [lon,lat,radLon,radLat] — stylized, not survey-grade */
+  const LAND=[[-100,48,34,20],[-42,72,11,9],[-86,14,9,9],[-60,-22,17,26],[12,50,20,13],
+    [18,2,22,30],[95,52,50,26],[78,22,11,12],[108,8,16,12],[118,-3,17,7],[134,-25,16,11]];
+  const isLand=(lon,lat)=>{ for(const e of LAND){ const a=(lon-e[0])/e[2], b=(lat-e[1])/e[3]; if(a*a+b*b<=1) return true; } return false; };
+  /* workshop nodes [lon,lat] — same cities as /workshops */
+  const NODES=[[-74,40.7],[-71,42.3],[-76.6,39.3],[-122,37.8],[-0.1,51.5],[121.5,31.2],[139.7,35.7]];
+  const proj=(lon,lat)=>[ (lon+180)/360*W, y0+(90-lat)/180*mapH ];
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2); W=cv.clientWidth; H=cv.clientHeight;
+    if(!W||!H) return;
+    cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    mapH=W/2; y0=(H-mapH)/2;
+    dots=[]; const CELL=Math.max(6,Math.round(W/62));
+    for(let py=y0; py<y0+mapH; py+=CELL) for(let px=0; px<W; px+=CELL){
+      const lon=px/W*360-180, lat=90-(py-y0)/mapH*180;
+      if(isLand(lon,lat)) dots.push([px,py]);
+    }
+  }
+  let t=0;
+  function draw(){
+    if(!W||!H) return;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='rgba(111,99,80,0.26)';
+    for(const d of dots) ctx.fillRect(d[0]-0.9,d[1]-0.9,1.8,1.8);
+    const cx=W/2, cy=H/2;
+    NODES.forEach((n,i)=>{
+      const p=proj(n[0],n[1]);
+      ctx.strokeStyle='rgba(155,107,255,0.15)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(p[0],p[1]); ctx.stroke();
+      const ph=((t*0.018)+i/NODES.length)%1;
+      ctx.globalAlpha=Math.sin(ph*Math.PI)*0.9; ctx.fillStyle='#9b6bff';
+      const tx=cx+(p[0]-cx)*ph, ty=cy+(p[1]-cy)*ph;
+      ctx.fillRect(tx-1.4,ty-1.4,2.8,2.8); ctx.globalAlpha=1;
+    });
+    NODES.forEach((n,i)=>{
+      const p=proj(n[0],n[1]), pulse=0.5+0.5*Math.sin(t*0.12+i);
+      ctx.fillStyle='rgba(155,107,255,'+(0.16+0.16*pulse)+')';
+      ctx.beginPath(); ctx.arc(p[0],p[1],3+2.4*pulse,0,7); ctx.fill();
+      ctx.fillStyle='#7d51e0'; ctx.beginPath(); ctx.arc(p[0],p[1],1.8,0,7); ctx.fill();
+    });
+    t++;
+  }
+  resize(); draw();
+  addEventListener('resize',()=>{ resize(); draw(); });
+  if(!reduce) setInterval(draw,90);
 })();
 </script>
 <script src="/assets/main.js" defer></script>
