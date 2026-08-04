@@ -63,13 +63,14 @@
   .fh-brand:hover{ transform:translate(-1px,-2px); box-shadow:5px 7px 0 var(--fh-shadow) }
   .fh-brand:focus-visible{ outline:2px solid var(--fh-glow); outline-offset:3px }
   .fh-brand img{ width:40px; height:40px; display:block; border-radius:9px; object-fit:contain; }
-  .fh-logo{ display:inline-flex; align-items:center; gap:13px; text-decoration:none; color:var(--fh-ink); margin:0 0 4px; white-space:nowrap; }
-  .fh-logo img{ width:46px; height:46px; }
-  .fh-logo span{ font-family:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
-    font-weight:600; font-size:clamp(1.8rem,3.6vw,2.5rem); letter-spacing:-.01em;
-    background:linear-gradient(105deg,#1fbf63 0%,#46c95c 24%,#9b6bff 92%);
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent; color:transparent; }
+  .fh-logo{ display:inline-block; text-decoration:none; margin:0 0 8px; }
+  .fh-logo canvas{ display:block; }
+  .fh-menu{ position:fixed; top:16px; right:16px; z-index:1300; width:44px; height:44px; display:grid;
+    place-items:center; border-radius:12px; font-size:1.3rem; line-height:1; color:var(--fh-ink);
+    background:rgba(246,239,225,.85); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+    border:1px solid var(--fh-line); box-shadow:3px 4px 0 var(--fh-shadow); cursor:pointer; }
+  .fh-menu:hover{ transform:translateY(-1px); }
+  .fh-menu:focus-visible{ outline:2px solid var(--fh-glow); outline-offset:3px; }
   .fh-bt{ display:flex; flex-direction:column; line-height:1.15 }
   .fh-bt small{ font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.16em;
     text-transform:uppercase; color:var(--fh-soft) }
@@ -184,13 +185,22 @@
   <symbol id="i-package" viewBox="0 0 24 24"><path d="M12 2.8 20 7v10l-8 4.2L4 17V7z"/><path d="M4 7l8 4.2L20 7"/><line x1="12" y1="11.2" x2="12" y2="21.2"/></symbol>
 </defs></svg>
 
+<button class="nav-toggle fh-menu" id="fh-menu" aria-label="Open menu" aria-expanded="false">☰</button>
+<nav class="mobile-nav" aria-label="Menu" id="mobile-nav">
+  <a href="/engine.html">Engine</a>
+  <a href="/brands.html">Course brands</a>
+  <a href="/story.html">Story</a>
+  <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
+  <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
+</nav>
+
 <main id="main">
 
 <!-- ═══ HERO — pixel paper-cut engine ═══ -->
 <section class="fh-hero" id="top">
   <div class="fh-inner">
     <div class="fh-copy">
-      <a class="fh-logo" href="/"><span>cultigen.ai</span></a>
+      <a class="fh-logo" href="/" aria-label="cultigen.ai"><canvas id="fh-wordmark"></canvas></a>
       <p class="fh-lede">
         Cultigen turns the newest technology into hands-on courses you can build: a lesson, an interactive,
         and a kit. Every course is reviewed by the original researchers, so it's AI-generated but
@@ -411,6 +421,31 @@
   cta.addEventListener('mouseleave', ()=>{ clearInterval(stream); stream=null; });
   cta.addEventListener('focus', ()=> spawn(16));
   cta.addEventListener('blur', ()=>{ clearInterval(stream); stream=null; });
+})();
+</script>
+<script>
+/* pixel dot-matrix wordmark: cultigen.ai, green→violet (home only) */
+(function(){
+  const cv=document.getElementById('fh-wordmark'); if(!cv) return;
+  function render(){
+    const ctx=cv.getContext('2d'), text='cultigen.ai', dpr=Math.min(devicePixelRatio||1,2);
+    const fontPx=54, cell=5, dotR=2.0, dispH=54;
+    const m=document.createElement('canvas'), mx=m.getContext('2d');
+    const font='800 '+fontPx+'px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif';
+    mx.font=font; const tw=Math.ceil(mx.measureText(text).width)+2, th=Math.ceil(fontPx*1.25);
+    m.width=tw; m.height=th; mx.font=font; mx.textBaseline='middle'; mx.fillStyle='#000'; mx.fillText(text,1,th/2);
+    const d=mx.getImageData(0,0,tw,th).data, dots=[];
+    for(let y=0;y<th;y+=cell) for(let x=0;x<tw;x+=cell){ if(d[(y*tw+x)*4+3]>90) dots.push([x,y]); }
+    const scale=dispH/th, W=Math.ceil(tw*scale);
+    cv.style.width=W+'px'; cv.style.height=dispH+'px'; cv.width=W*dpr; cv.height=dispH*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const g=ctx.createLinearGradient(0,0,W,0);
+    g.addColorStop(0,'#22c55e'); g.addColorStop(.42,'#7ed957'); g.addColorStop(1,'#9b6bff');
+    ctx.fillStyle=g;
+    for(const p of dots){ ctx.beginPath(); ctx.arc(p[0]*scale,p[1]*scale,dotR*scale,0,7); ctx.fill(); }
+  }
+  render();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(render);
 })();
 </script>
 <script src="/assets/main.js" defer></script>
