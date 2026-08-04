@@ -65,7 +65,6 @@
   .fh-brand img{ width:40px; height:40px; display:block; border-radius:9px; object-fit:contain; }
   .fh-logo{ display:inline-flex; align-items:center; gap:13px; text-decoration:none; margin:0 0 8px; }
   .fh-logo canvas{ display:block; }
-  #fh-spiral{ width:42px; height:42px; flex:none; }
   .fh-menu{ position:fixed; top:16px; right:16px; z-index:1300; width:44px; height:44px; display:grid;
     place-items:center; border-radius:12px; font-size:1.3rem; line-height:1; color:var(--fh-ink);
     background:rgba(246,239,225,.85); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
@@ -190,6 +189,7 @@
 <nav class="mobile-nav" aria-label="Menu" id="mobile-nav">
   <a href="/engine.html">Engine</a>
   <a href="/brands.html">Course brands</a>
+  <a href="/workshops.html">Workshops</a>
   <a href="/story.html">Story</a>
   <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
   <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
@@ -201,14 +201,14 @@
 <section class="fh-hero" id="top">
   <div class="fh-inner">
     <div class="fh-copy">
-      <a class="fh-logo" href="/" aria-label="cultigen.ai"><canvas class="pixel-word" data-h="54" aria-hidden="true"></canvas><canvas id="fh-spiral" class="fh-spiral" aria-hidden="true"></canvas></a>
+      <a class="fh-logo" href="/" aria-label="cultigen.ai"><canvas class="pixel-word" data-h="54" aria-hidden="true"></canvas></a>
       <p class="fh-lede">
         Cultigen turns the newest technology into hands-on courses you can build: a lesson, an interactive,
         and a kit. Every course is reviewed by the original researchers, so it's AI-generated but
         trustworthy and responsible.
       </p>
       <div class="fh-row">
-        <a class="fh-cta" href="mailto:cultigen.ai@artineerade.com?subject=Joining%20a%20Cultigen%20workshop">Join our workshops →</a>
+        <a class="fh-cta" href="/workshops.html">Find a workshop in your city →</a>
         <a class="fh-brand" href="https://funguylab.com/" target="_blank" rel="noopener" aria-label="FunguyLab, our first course brand">
           <img src="/assets/funguylab-avatar.png" alt="FunguyLab" width="40" height="40">
           <span class="fh-bt"><small>First course brand</small><b>FunguyLab <span class="fh-arw">→</span></b></span>
@@ -422,27 +422,6 @@
   cta.addEventListener('mouseleave', ()=>{ clearInterval(stream); stream=null; });
   cta.addEventListener('focus', ()=> spawn(16));
   cta.addEventListener('blur', ()=>{ clearInterval(stream); stream=null; });
-})();
-</script>
-<script>
-/* rotating pixel spiral beside the logo (home) */
-(function(){
-  const cv=document.getElementById('fh-spiral'); if(!cv) return;
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const ctx=cv.getContext('2d'); let W=0,H=0,dpr=1,phase=0;
-  function resize(){ dpr=Math.min(devicePixelRatio||1,2); W=cv.clientWidth||42; H=cv.clientHeight||42; cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
-  function draw(){
-    ctx.clearRect(0,0,W,H); const cx=W/2, cy=H/2, maxR=Math.min(W,H)*0.46, TMAX=Math.PI*7;
-    for(let t=0.5;t<TMAX;t+=0.42){
-      const f=t/TMAX, r=f*maxR, a=t+phase;
-      const x=cx+r*Math.cos(a), y=cy+r*Math.sin(a);
-      const R=Math.round(34+f*121), G=Math.round(197-f*90), B=Math.round(94+f*161);
-      ctx.fillStyle='rgb('+R+','+G+','+B+')';
-      const dr=1+f*2.0; ctx.fillRect(x-dr/2,y-dr/2,dr,dr);
-    }
-  }
-  resize(); addEventListener('resize',()=>{resize();draw();});
-  if(reduce) draw(); else setInterval(()=>{ phase+=0.06; draw(); },100);
 })();
 </script>
 <script src="/assets/main.js" defer></script>

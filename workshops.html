@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="dns-prefetch" href="https://funguylab.com" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta name="theme-color" content="#f6efe1" />
+<title>Workshops — Cultigen</title>
+<meta name="description" content="Find a Cultigen course workshop near you. Pick a course and your city, and join a hands-on cohort where you build the real thing with other people." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://cultigen.ai/workshops.html" />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css" />
+<style id="wk">
+  .wk{ --ink:#241d15; --soft:#6f6350; --line:#d8c8a8; --glow:#9b6bff; --paper:#f6efe1;
+    --paper2:#efe6d3; --card:#fbf5e7; --shadow:rgba(60,44,22,.18); --warm:#f2b34e;
+    min-height:100vh; padding:96px clamp(20px,5vw,48px) 72px; background:var(--paper);
+    background-image:radial-gradient(120% 80% at 84% 0%, color-mix(in srgb,var(--glow) 8%,transparent), transparent 60%); }
+  .wk-wrap{ width:min(940px,100%); margin-inline:auto; }
+  .wk-eyebrow{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-size:.66rem; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--soft); margin:0 0 12px; display:flex; align-items:center; gap:10px; }
+  .wk-eyebrow::before{ content:""; width:24px; height:1px; background:var(--line); }
+  .wk-lead{ font-family:ui-serif,"Iowan Old Style",Palatino,Georgia,serif; font-weight:600;
+    font-size:clamp(1.9rem,4.4vw,2.8rem); line-height:1.08; letter-spacing:-.01em; margin:0; color:var(--ink);
+    text-wrap:balance; }
+  .wk-sub{ margin:14px 0 0; max-width:52ch; font-size:1.02rem; line-height:1.6; color:color-mix(in srgb,var(--ink) 78%,transparent); }
+
+  .wk-controls{ margin:34px 0 8px; display:flex; flex-direction:column; gap:16px; }
+  .wk-group{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .wk-glabel{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-size:.6rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--soft); margin-right:2px; min-width:56px; }
+  .wk-pill{ font:inherit; font-size:.9rem; font-weight:600; color:var(--ink); background:var(--paper2);
+    border:1.5px solid var(--line); border-radius:100px; padding:8px 16px; cursor:pointer;
+    transition:transform .14s, background .18s, border-color .18s, color .18s; }
+  .wk-pill:hover{ transform:translateY(-1px); }
+  .wk-pill[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
+  .wk-pill:focus-visible{ outline:2px solid var(--glow); outline-offset:3px; }
+  .wk-search{ flex:1; min-width:200px; border:1.5px solid var(--line); border-radius:100px;
+    padding:10px 16px; font:inherit; background:#fff; color:var(--ink); }
+  .wk-search:focus-visible{ outline:2px solid var(--glow); outline-offset:2px; }
+
+  .wk-count{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-size:.62rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--soft); margin:26px 0 14px; }
+  .wk-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+  .wk-card{ position:relative; background:var(--card); border:1.5px solid var(--line); border-radius:16px;
+    padding:20px 20px 18px; box-shadow:4px 6px 0 var(--shadow); transition:transform .18s, box-shadow .18s;
+    display:flex; flex-direction:column; gap:2px; }
+  .wk-card:hover{ transform:translate(-1px,-2px); box-shadow:7px 10px 0 var(--shadow); }
+  .wk-pin{ position:absolute; top:16px; right:16px; }
+  .wk-city{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:1.3rem; color:var(--ink); margin:0; }
+  .wk-region{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-size:.6rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--soft); margin:2px 0 12px; }
+  .wk-course{ display:inline-flex; align-items:center; gap:7px; font-size:.82rem; font-weight:600;
+    color:var(--ink); margin-bottom:12px; }
+  .wk-course img{ width:20px; height:20px; border-radius:5px; }
+  .wk-status{ display:inline-flex; align-items:center; gap:7px; font-family:var(--fm,ui-monospace,Menlo,monospace);
+    font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); margin-bottom:14px; }
+  .wk-dot{ width:7px; height:7px; border-radius:50%; background:var(--warm); box-shadow:0 0 0 3px color-mix(in srgb,var(--warm) 30%,transparent); }
+  .wk-card.live .wk-dot{ background:#3fae5a; box-shadow:0 0 0 3px color-mix(in srgb,#3fae5a 28%,transparent); }
+  .wk-join{ margin-top:auto; align-self:flex-start; text-decoration:none; font-weight:700; font-size:.86rem;
+    color:var(--paper); background:var(--ink); border-radius:100px; padding:10px 18px; transition:background .18s, transform .14s; }
+  .wk-join:hover{ transform:translateY(-1px); background:color-mix(in srgb,var(--ink) 86%,var(--glow)); }
+  .wk-join:focus-visible{ outline:2px solid var(--glow); outline-offset:3px; }
+
+  .wk-empty{ text-align:center; padding:40px 20px; color:var(--soft); }
+  .wk-request{ margin-top:34px; background:var(--paper2); border:1.5px dashed var(--line); border-radius:16px;
+    padding:22px 24px; display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; }
+  .wk-request p{ margin:0; color:var(--ink); font-size:1rem; }
+  .wk-request small{ display:block; color:var(--soft); font-size:.82rem; margin-top:3px; }
+  .wk-request a{ text-decoration:none; font-weight:700; font-size:.9rem; color:var(--paper);
+    background:var(--glow); border-radius:100px; padding:11px 20px; white-space:nowrap; }
+  .wk-request a:hover{ filter:brightness(1.05); }
+  @media (max-width:560px){ .wk-request{ flex-direction:column; align-items:flex-start; } }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to main content</a>
+<a class="simple-logo" href="/" aria-label="cultigen.ai"><canvas class="pixel-word" data-h="24" aria-hidden="true"></canvas></a>
+<button class="nav-toggle menu-fab" id="menu-fab" aria-label="Open menu" aria-expanded="false">☰</button>
+<nav class="mobile-nav" aria-label="Menu" id="mobile-nav">
+  <a href="/engine.html">Engine</a>
+  <a href="/brands.html">Course brands</a>
+  <a href="/workshops.html" aria-current="page">Workshops</a>
+  <a href="/story.html">Story</a>
+  <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
+  <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
+</nav>
+
+<main id="main" class="wk">
+  <div class="wk-wrap">
+    <p class="wk-eyebrow">Workshops</p>
+    <h1 class="wk-lead">Find a workshop in your city.</h1>
+    <p class="wk-sub">Pick a course and your city, and join a hands-on cohort where you build the real thing
+      with other people, guided by the team behind the course. New cities open as demand builds.</p>
+
+    <div class="wk-controls">
+      <div class="wk-group" id="wk-courses">
+        <span class="wk-glabel">Course</span>
+        <button class="wk-pill" data-course="all" aria-pressed="true">All</button>
+        <button class="wk-pill" data-course="funguylab" aria-pressed="false">FunguyLab</button>
+      </div>
+      <div class="wk-group">
+        <span class="wk-glabel">City</span>
+        <input class="wk-search" id="wk-search" type="text" placeholder="Search your city or region…" aria-label="Search your city">
+      </div>
+    </div>
+
+    <p class="wk-count" id="wk-count"></p>
+    <div class="wk-grid" id="wk-grid"></div>
+
+    <div class="wk-request">
+      <p>Don't see your city?
+        <small>Tell us where you are, and we'll open a cohort there first.</small>
+      </p>
+      <a href="mailto:cultigen.ai@artineerade.com?subject=Bring%20a%20workshop%20to%20my%20city&body=City%3A%20%0ACourse%20I%20want%3A%20%0AHow%20many%20of%20us%3A%20">Request your city →</a>
+    </div>
+  </div>
+</main>
+
+<script>
+/* ── Workshop finder (client-side) ─────────────────────────
+   Edit NODES below with real confirmed venues + dates.
+   status: 'live'  → a cohort is running / scheduled
+           'forming' → waitlist open, next cohort forming     */
+(function(){
+  const BRANDS = { funguylab:{ name:'FunguyLab', avatar:'/assets/funguylab-avatar.png' } };
+  const NODES = [
+    { course:'funguylab', city:'Boston',        region:'USA · Massachusetts', status:'forming' },
+    { course:'funguylab', city:'New York',      region:'USA · New York',      status:'forming' },
+    { course:'funguylab', city:'San Francisco', region:'USA · California',     status:'forming' },
+    { course:'funguylab', city:'Shanghai',      region:'China',                status:'forming' },
+    { course:'funguylab', city:'London',        region:'United Kingdom',       status:'forming' },
+    { course:'funguylab', city:'Tokyo',         region:'Japan',                status:'forming' }
+  ];
+  const STATUS = {
+    live:    { dot:'live',    label:'Cohort scheduled', cta:'Join this cohort →' },
+    forming: { dot:'forming', label:'Waitlist forming', cta:'Join the waitlist →' }
+  };
+
+  const grid = document.getElementById('wk-grid'),
+        count = document.getElementById('wk-count'),
+        search = document.getElementById('wk-search'),
+        courseBar = document.getElementById('wk-courses');
+  let course = 'all', q = '';
+
+  function pin(){
+    return '<svg class="wk-pin" width="20" height="24" viewBox="0 0 20 24" aria-hidden="true" shape-rendering="crispEdges">'
+      + '<rect x="6" y="2" width="8" height="2" fill="#9b6bff"/><rect x="4" y="4" width="12" height="2" fill="#9b6bff"/>'
+      + '<rect x="4" y="6" width="12" height="4" fill="#9b6bff"/><rect x="6" y="10" width="8" height="2" fill="#9b6bff"/>'
+      + '<rect x="8" y="12" width="4" height="2" fill="#7d51e0"/><rect x="9" y="14" width="2" height="4" fill="#7d51e0"/>'
+      + '<rect x="8" y="7" width="4" height="4" fill="#fbf5e7"/></svg>';
+  }
+  function mail(n){
+    return 'mailto:cultigen.ai@artineerade.com?subject='
+      + encodeURIComponent(BRANDS[n.course].name + ' workshop — ' + n.city)
+      + '&body=' + encodeURIComponent('City: ' + n.city + '\nCourse: ' + BRANDS[n.course].name + '\n');
+  }
+  function esc(s){ return (s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+
+  function render(){
+    const list = NODES.filter(n =>
+      (course==='all' || n.course===course) &&
+      (!q || (n.city+' '+n.region).toLowerCase().includes(q)));
+    count.textContent = list.length
+      ? list.length + (list.length===1?' city':' cities') + (q?' matching "'+q+'"':'')
+      : '';
+    if(!list.length){
+      grid.innerHTML = '<p class="wk-empty">No workshop in that city yet. Use <b>Request your city</b> below and we\'ll start one there.</p>';
+      return;
+    }
+    grid.innerHTML = list.map(n => {
+      const b = BRANDS[n.course], s = STATUS[n.status];
+      return '<article class="wk-card '+n.status+'">' + pin()
+        + '<h2 class="wk-city">'+esc(n.city)+'</h2>'
+        + '<p class="wk-region">'+esc(n.region)+'</p>'
+        + '<span class="wk-course"><img src="'+b.avatar+'" alt="" width="20" height="20">'+esc(b.name)+'</span>'
+        + '<span class="wk-status"><span class="wk-dot"></span>'+s.label+'</span>'
+        + '<a class="wk-join" href="'+mail(n)+'">'+s.cta+'</a>'
+        + '</article>';
+    }).join('');
+  }
+
+  courseBar.addEventListener('click', e => {
+    const b = e.target.closest('.wk-pill'); if(!b) return;
+    course = b.dataset.course;
+    courseBar.querySelectorAll('.wk-pill').forEach(p =>
+      p.setAttribute('aria-pressed', p===b ? 'true':'false'));
+    render();
+  });
+  search.addEventListener('input', () => { q = search.value.trim().toLowerCase(); render(); });
+  render();
+})();
+</script>
+<script src="/assets/main.js" defer></script>
+</body>
+</html>

@@ -14,6 +14,24 @@
 <link rel="canonical" href="https://cultigen.ai/brands.html" />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/styles.css" />
+<style id="wall">
+  .wall{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .frame{ position:absolute; width:clamp(126px,12vw,170px); pointer-events:auto; cursor:grab;
+    transform:rotate(var(--rot,0deg)); background:#fff; padding:9px 9px 7px;
+    border:3px solid #241d15; box-shadow:5px 6px 0 rgba(60,44,22,.20);
+    transition:transform .22s cubic-bezier(.2,.8,.25,1), box-shadow .22s, filter .22s;
+    filter:saturate(.94); user-select:none; touch-action:none; }
+  .frame::after{ content:""; position:absolute; inset:3px; border:1px solid rgba(60,44,22,.12); pointer-events:none; }
+  .frame img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover;
+    image-rendering:auto; -webkit-user-drag:none; background:#efe6d3; }
+  .frame .cap{ display:block; margin-top:6px; font-family:var(--fm,ui-monospace,Menlo,monospace);
+    font-size:.56rem; letter-spacing:.09em; text-transform:uppercase; color:#6f6350; text-align:center; }
+  .frame:hover{ transform:rotate(0deg) scale(1.09); box-shadow:8px 11px 0 rgba(60,44,22,.24); filter:saturate(1.04); z-index:6; }
+  .frame.dragging{ transition:none; cursor:grabbing; transform:rotate(0deg) scale(1.06); z-index:20;
+    box-shadow:10px 14px 0 rgba(60,44,22,.26); filter:saturate(1.06); }
+  .frame.thrown{ transition:none; transform:rotate(0deg); }
+  @media (max-width:1080px){ .wall{ display:none; } }
+</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -22,12 +40,41 @@
 <nav class="mobile-nav" aria-label="Menu" id="mobile-nav">
   <a href="/engine.html">Engine</a>
   <a href="/brands.html" aria-current="page">Course brands</a>
+  <a href="/workshops.html">Workshops</a>
   <a href="/story.html">Story</a>
   <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
   <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
 </nav>
 
-<main id="main" class="simple">
+<!-- FunguyLab achievement wall — draggable pixel frames (images from funguylab.com) -->
+<div class="wall" id="wall" aria-label="FunguyLab achievements">
+  <figure class="frame" style="left:3%;top:15%;--rot:-5deg">
+    <img src="https://funguylab.com/assets/photos/fig-siggraph.jpg" alt="FunguyLab research figure" loading="lazy">
+    <figcaption class="cap">SIGGRAPH Asia 2024</figcaption>
+  </figure>
+  <figure class="frame" style="left:6%;top:44%;--rot:4deg">
+    <img src="https://funguylab.com/assets/photos/biofab2.jpg" alt="FunguyLab at BioFabricate" loading="lazy">
+    <figcaption class="cap">BioFabricate Summit</figcaption>
+  </figure>
+  <figure class="frame" style="left:2%;top:70%;--rot:6deg">
+    <img src="https://funguylab.com/assets/photos/reearth-award.png" alt="reEarth art prize" loading="lazy">
+    <figcaption class="cap">reEarth Jury Choice · 2025</figcaption>
+  </figure>
+  <figure class="frame" style="left:82%;top:14%;--rot:5deg">
+    <img src="https://funguylab.com/assets/photos/hackaday.jpg" alt="FunguyLab on Hackaday" loading="lazy">
+    <figcaption class="cap">Featured on Hackaday</figcaption>
+  </figure>
+  <figure class="frame" style="left:85%;top:42%;--rot:-4deg">
+    <img src="https://funguylab.com/assets/photos/mit-act.jpg" alt="FunguyLab at MIT ACT" loading="lazy">
+    <figcaption class="cap">MIT ACT · The Cube</figcaption>
+  </figure>
+  <figure class="frame" style="left:80%;top:70%;--rot:-6deg">
+    <img src="https://funguylab.com/assets/photos/app1.png" alt="The FunguyLab app" loading="lazy">
+    <figcaption class="cap">The FunguyLab app</figcaption>
+  </figure>
+</div>
+
+<main id="main" class="simple" style="position:relative;z-index:1">
   <div class="simple-wrap">    <p class="lead">Cultigen doesn't stop at a lesson.</p>
     <p>It launches each course as a <strong>course brand</strong>: something with a name, an identity, and a
       community that people are proud to be part of and want to share.</p>
@@ -38,6 +85,41 @@
   </div>
 </main>
 
+<script>
+/* draggable achievement frames (pointer) */
+(function(){
+  const wall = document.getElementById('wall');
+  if(!wall || matchMedia('(pointer:coarse)').matches) return;
+  let top = 30;
+  wall.querySelectorAll('.frame').forEach(f => {
+    let sx, sy, ox, oy, moved;
+    f.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      const r = f.getBoundingClientRect();
+      // pin to pixel coords so drag is absolute, not affected by % + transform
+      f.style.left = r.left + 'px'; f.style.top = r.top + 'px'; f.style.right = 'auto';
+      sx = e.clientX; sy = e.clientY; ox = r.left; oy = r.top; moved = false;
+      f.setPointerCapture(e.pointerId);
+      f.classList.add('dragging'); f.classList.remove('thrown');
+      f.style.zIndex = ++top;
+    });
+    f.addEventListener('pointermove', e => {
+      if(!f.classList.contains('dragging')) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      if(Math.abs(dx) + Math.abs(dy) > 3) moved = true;
+      f.style.left = (ox + dx) + 'px';
+      f.style.top  = Math.max(4, oy + dy) + 'px';
+    });
+    const end = e => {
+      if(!f.classList.contains('dragging')) return;
+      f.classList.remove('dragging');
+      if(moved) f.classList.add('thrown'); // keep resting transform flat where dropped
+    };
+    f.addEventListener('pointerup', end);
+    f.addEventListener('pointercancel', end);
+  });
+})();
+</script>
 <script src="/assets/main.js" defer></script>
 </body>
 </html>
