@@ -6,373 +6,39 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<meta name="theme-color" content="#a9d6ef" />
-
+<meta name="theme-color" content="#f6efe1" />
 <title>The engine — Cultigen</title>
-<meta name="description" content="One source in, a complete hands-on course out. Cultigen turns frontier research, an industry process, or a product into a lesson, a working interactive, and a buildable kit." />
+<meta name="description" content="Cultigen is a course engine. Give it the newest technology and it returns a complete hands-on course: a lesson, an interactive, and a kit." />
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href="https://cultigen.ai/engine.html" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="The engine — Cultigen" />
-<meta property="og:description" content="One source in, a complete hands-on course out: a lesson, a working interactive, and a buildable kit." />
-<meta property="og:image" content="https://cultigen.ai/assets/og.jpg" />
-<meta property="og:url" content="https://cultigen.ai/engine.html" />
-
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
-
-<!-- ═══ ICON SPRITE ═══ -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.3" y1="15.3" x2="20" y2="20"/></symbol>
-  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20v-.5a6.5 6.5 0 0 1 13 0v.5"/></symbol>
-  <symbol id="i-package" viewBox="0 0 24 24"><path d="M12 2.8 20 7v10l-8 4.2L4 17V7z"/><path d="M4 7l8 4.2L20 7"/><line x1="12" y1="11.2" x2="12" y2="21.2"/></symbol>
-  <symbol id="i-dna" viewBox="0 0 24 24"><path d="M8 3C16 7 16 17 8 21"/><path d="M16 3C8 7 8 17 16 21"/><line x1="9" y1="6.5" x2="15" y2="6.5"/><line x1="9.4" y1="12" x2="14.6" y2="12"/><line x1="9" y1="17.5" x2="15" y2="17.5"/></symbol>
-  <symbol id="i-battery" viewBox="0 0 24 24"><rect x="3" y="7" width="15" height="10" rx="2"/><line x1="20" y1="10.5" x2="20" y2="13.5"/><path d="M11 9l-2.4 3.6H11l-.9 3 3.3-4.1h-2.3z"/></symbol>
-  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 8h12v3a6 6 0 0 1-12 0z"/><path d="M16 8.8h1.8a2.2 2.2 0 0 1 0 4.4H16.4"/><line x1="4.5" y1="20" x2="15.5" y2="20"/><path d="M8 3c-.7.7-.7 1.5 0 2.2"/><path d="M11 3c-.7.7-.7 1.5 0 2.2"/></symbol>
-  <symbol id="i-spiral" viewBox="0 0 24 24"><path d="M12 12a2 2 0 1 1 2.2-2 4.5 4.5 0 1 1-4.7 4.4A7 7 0 1 1 16.9 7"/></symbol>
-  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10.2 5 6.6 4.7 4 5.6v13c2.6-.9 6.2-.6 8 1 1.8-1.6 5.4-1.9 8-1v-13c-2.6-.9-6.2-.6-8 1z"/><line x1="12" y1="6.5" x2="12" y2="19.6"/></symbol>
-  <symbol id="i-play" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M10.4 8.4 14.6 11l-4.2 2.6z"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
-  <symbol id="i-building" viewBox="0 0 24 24"><path d="M3.4 9 12 4l8.6 5"/><line x1="3" y1="20.5" x2="21" y2="20.5"/><line x1="5.5" y1="9.7" x2="5.5" y2="20"/><line x1="9.5" y1="9.7" x2="9.5" y2="20"/><line x1="14.5" y1="9.7" x2="14.5" y2="20"/><line x1="18.5" y1="9.7" x2="18.5" y2="20"/></symbol>
-  <symbol id="i-grad" viewBox="0 0 24 24"><path d="M2.5 8.5 12 4.5l9.5 4L12 12.5z"/><path d="M6.5 10.8v4c0 1.4 11 1.4 11 0v-4"/><line x1="21.5" y1="8.7" x2="21.5" y2="12.7"/></symbol>
-  <symbol id="i-microscope" viewBox="0 0 24 24"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></symbol>
-</defs></svg>
-
-<!-- ═══ NAV ═══ -->
-<header class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="/">Cultigen</a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="/">Home</a>
-      <a href="/engine.html" aria-current="page">Engine</a>
-      <a href="/brands.html">Course brands</a>
-      <a href="/story.html">Story</a>
-      <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
-      <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="mailto:cultigen.ai@artineerade.com" class="btn btn-primary btn-sm">Get involved →</a>
-      <button class="nav-toggle" aria-label="open menu" aria-expanded="false">☰</button>
-    </div>
-  </div>
-</header>
-<nav class="mobile-nav" aria-label="Mobile" id="mobile-nav">
-  <a href="/">Home</a>
-  <a href="/engine.html">Engine</a>
+<a class="simple-brand" href="/">cultigen.ai</a>
+<button class="nav-toggle menu-fab" id="menu-fab" aria-label="Open menu" aria-expanded="false">☰</button>
+<nav class="mobile-nav" aria-label="Menu" id="mobile-nav">
+  <a href="/engine.html" aria-current="page">Engine</a>
   <a href="/brands.html">Course brands</a>
   <a href="/story.html">Story</a>
   <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
   <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
 </nav>
 
-<main id="main">
-
-<!-- ═══ PAGE HEAD ═══ -->
-<section class="page-head">
-  <div class="wrap">
-    <div class="eyebrow">The engine</div>
-    <h1>One source in.<br>A hands-on course out.</h1>
-    <p>Give Cultigen a frontier paper, an industry process, or a product. It returns a lesson, a working
-      interactive, and a buildable kit, while the idea is still exciting.</p>
+<main id="main" class="simple">
+  <div class="simple-wrap">
+    <p class="eyebrow-mono">The engine</p>
+    <p class="lead">Cultigen is a course engine.</p>
+    <p>Give it the newest technology, a research paper, an industry process, or a product, and it returns a
+      complete <strong>hands-on course</strong>: a lesson that gets you to the real idea, a working
+      interactive you can play with, and a kit you build with your own hands.</p>
+    <p>Every course is reviewed by the <strong>original researchers</strong>, so it stays accurate and
+      current. What used to take years now takes minutes.</p>
+    <p>You can try it yourself on the <a class="inline" href="/">home page</a>: drop in a link or a PDF and
+      watch it sketch a course.</p>
   </div>
-</section>
-
-<!-- ═══ THE PROBLEM ═══ -->
-<section class="sec-paper">
-  <div class="wrap">
-    <div class="shead">
-      <h2>The best of what we discover<br>almost never reaches you.</h2>
-    </div>
-    <div class="split">
-      <div class="reveal">
-        <p style="font-size:1.05rem;line-height:1.85">
-          Every year, some of the smartest people alive push the frontier forward. Most of it stays locked
-          in <strong>papers, processes, and products</strong> that never become something a curious person
-          can actually learn from or build.
-        </p>
-        <p style="margin-top:16px;line-height:1.85">
-          And what does get taught often lags years behind, in a form that doesn't stick. The gap between
-          <strong>what we know</strong> and <strong>what we get to touch</strong> keeps growing.
-        </p>
-        <p style="margin-top:16px;line-height:1.85">
-          Cultigen closes that gap. It takes the newest research, an industry process, or a real product,
-          and turns it into a course you can <strong>learn and build right now</strong>, while it is still
-          the frontier.
-        </p>
-      </div>
-      <div class="reveal">
-        <div class="pull">
-          "The distance between a discovery and something you can hold in your hands should be days,
-          not decades."
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ THE UNLOCK ═══ -->
-<section class="sec-meadow">
-  <div class="wrap">
-    <div class="shead center">
-      <h2>AI can finally do this.</h2>
-      <p>
-        For the first time, AI can read a frontier paper and turn it into a real, teachable, hands-on
-        experience: a lesson, an interactive, and a kit. This capability did not exist two years ago.
-      </p>
-    </div>
-
-    <div class="reveal" style="margin:48px 0">
-      <div class="contrast">
-        <div class="col">
-          <div class="c-old">Locked in a paper</div>
-          <div class="c-lbl">The frontier, until now</div>
-        </div>
-        <div class="c-arrow">→</div>
-        <div class="col">
-          <div class="c-new grad-ink">In your hands</div>
-          <div class="c-lbl">With Cultigen</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="reveal">
-      <p class="big-quote">
-        This isn't a summary of the research.
-        <span class="grad-ink">It's the research itself, turned into something you can play with and build.</span>
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHAT A COURSE IS ═══ -->
-<section class="sec-cream" id="what">
-  <div class="wrap">
-    <div class="shead center">
-      <h2>What a Cultigen course is.</h2>
-      <p>One source in. A complete, hands-on course out.</p>
-    </div>
-    <div class="grid g2">
-      <div class="card reveal">
-        <div class="ic moss"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-search"/></svg></div>
-        <h3>Straight from the frontier</h3>
-        <p>
-          It starts from the <strong>newest research, an industry process, or a real product</strong>, not
-          last decade's textbook. The idea reaches you while it is still exciting.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="ic sky"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg></div>
-        <h3>A lesson that lands</h3>
-        <p>
-          Clear, current teaching that gets you to the <strong>real idea</strong> fast, and is reviewed by
-          experts in the field, so up to date never means unvetted.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg></div>
-        <h3>A working interactive</h3>
-        <p>
-          Not a video to watch. A real, playable <strong>interactive</strong> where you push on the concept
-          yourself until it clicks.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="ic gold"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-package"/></svg></div>
-        <h3>A kit you build</h3>
-        <p>
-          A buildable <strong>hands-on kit</strong> that takes the science off the screen and into your
-          hands, because ideas stick when you make them yourself.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ ENGINE DEMO ═══ -->
-<section class="sec-paper" id="demo">
-  <div class="wrap">
-    <div class="shead center">
-      <h2>One source in. Three things out.</h2>
-      <p>A frontier paper, an industry process, or a real product. Cultigen turns any of them into a ready-to-teach, hands-on package.</p>
-    </div>
-
-    <div class="demo reveal" id="engine-demo">
-      <div class="demo-grid">
-        <div class="demo-pick">
-          <div class="plabel">① Choose a source</div>
-          <div class="paper-chips" id="paper-chips">
-            <button class="pchip active" data-paper="0">
-              <span class="pc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-dna"/></svg></span>
-              <span><span class="pc-t">AlphaFold 3</span><span class="pc-s">Frontier paper · predicting protein structure</span></span>
-            </button>
-            <button class="pchip" data-paper="1">
-              <span class="pc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-battery"/></svg></span>
-              <span><span class="pc-t">Lithium-ion batteries</span><span class="pc-s">Industry process · how modern cells are made</span></span>
-            </button>
-            <button class="pchip" data-paper="2">
-              <span class="pc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffee"/></svg></span>
-              <span><span class="pc-t">The espresso machine</span><span class="pc-s">A product · the physics of a shot</span></span>
-            </button>
-            <button class="pchip" data-paper="3">
-              <span class="pc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-spiral"/></svg></span>
-              <span><span class="pc-t">Neural cellular automata</span><span class="pc-s">Frontier paper · patterns that grow &amp; heal</span></span>
-            </button>
-          </div>
-          <button class="btn btn-primary demo-run" id="run-btn">▶ Run Cultigen</button>
-        </div>
-
-        <div class="demo-stage" id="stage">
-          <div class="stage-spores" id="stage-spores" aria-hidden="true"></div>
-          <div class="pod-wrap">
-            <div class="pod" id="pod">
-              <div class="pod-ring"></div>
-              <div class="pod-core"></div>
-            </div>
-          </div>
-          <div class="steps" id="steps">
-            <div class="step" data-step="0"><span class="s-dot">1</span><span class="s-t">Decompose the research<small>Parse claims, methods &amp; core concepts</small></span></div>
-            <div class="step" data-step="1"><span class="s-dot">2</span><span class="s-t">Align to standards<small>Map to level &amp; learning objectives</small></span></div>
-            <div class="step" data-step="2"><span class="s-dot">3</span><span class="s-t">Scaffold the pedagogy<small>Build lessons, interactive &amp; kit spec</small></span></div>
-            <div class="step" data-step="3"><span class="s-dot">4</span><span class="s-t">Expert review<small>Original authors or practitioners verify accuracy</small></span></div>
-          </div>
-          <div class="demo-hint" id="hint">Press “Run Cultigen” to begin ↑</div>
-        </div>
-      </div>
-
-      <div class="demo-out" id="outputs">
-        <div class="oc" data-out="0">
-          <div class="oc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-book"/></svg></div>
-          <div class="oc-tag">Learnable content</div>
-          <h4 id="o0-t">—</h4>
-          <p id="o0-p">—</p>
-        </div>
-        <div class="oc" data-out="1">
-          <div class="oc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-play"/></svg></div>
-          <div class="oc-tag">Working asset</div>
-          <h4 id="o1-t">—</h4>
-          <p id="o1-p">—</p>
-        </div>
-        <div class="oc" data-out="2">
-          <div class="oc-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-package"/></svg></div>
-          <div class="oc-tag">Buildable kit</div>
-          <h4 id="o2-t">—</h4>
-          <p id="o2-p">—</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ ARCHITECTURE ═══ -->
-<section class="sec-cream" id="architecture">
-  <div class="wrap">
-    <div class="split">
-      <div class="reveal">
-        <h2>Stable core.<br>Living edges.</h2>
-        <p style="margin-top:18px;font-size:1.03rem;line-height:1.8">
-          A good course shouldn't be entirely fluid. The fundamentals are the fundamentals. So Cultigen
-          builds around a <strong>solid core</strong>, then wraps it in <strong>frontier modules that stay
-          current</strong> as the research moves.
-        </p>
-        <p style="margin-top:14px;line-height:1.8">
-          The core gives you solid ground. The frontier modules keep you in contact with what's happening
-          right now. And because <strong>experts in the field review each one</strong>, up to date never
-          means unvetted.
-        </p>
-        <p style="margin-top:14px;line-height:1.8">
-          So a Cultigen course never quietly goes stale. <strong>It stays as current as the field it came
-          from.</strong>
-        </p>
-      </div>
-      <div class="reveal">
-        <div class="strata">
-          <div class="band core">
-            <div class="k">Stable core</div>
-            <div class="v">Fundamentals · standards-aligned · slow-changing</div>
-          </div>
-          <div class="band edge">
-            <div class="k">Frontier modules ↻</div>
-            <div class="v">This week's research &amp; practice · expert-reviewed · always fresh</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHO IT'S FOR ═══ -->
-<section class="sec-cream" id="who">
-  <div class="wrap">
-    <div class="shead center">
-      <h2>Built for anyone who<br>wants to touch the frontier.</h2>
-      <p>Not just institutions. Anyone curious enough to learn the newest ideas and build them.</p>
-    </div>
-    <div class="grid g3">
-      <div class="card reveal">
-        <div class="ic gold"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-grad"/></svg></div>
-        <h3>Learners &amp; the curious</h3>
-        <p>
-          Meet an idea while it's still the frontier and <strong>build it with your own hands</strong>,
-          across biology, engineering, and design. No PhD required.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="ic sky"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-building"/></svg></div>
-        <h3>Educators &amp; makerspaces</h3>
-        <p>
-          Teachers, workshop leaders, and labs get <strong>fresh, hands-on courses that are ready to
-          run</strong>, so the newest science reaches the room without the years of prep.
-        </p>
-      </div>
-      <div class="card reveal">
-        <div class="ic moss"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-microscope"/></svg></div>
-        <h3>Researchers</h3>
-        <p>
-          Your work deserves to reach beyond a paper. Cultigen turns it into <strong>something the world
-          can learn and build</strong>, with you.
-        </p>
-      </div>
-    </div>
-    <div class="reveal" style="text-align:center;margin-top:44px">
-      <p class="big-quote">
-        The frontier shouldn't belong only to the few
-        <span class="grad-ink">who happen to be in the right lab.</span>
-      </p>
-    </div>
-  </div>
-</section>
-
 </main>
-
-<!-- ═══ FOOTER ═══ -->
-<footer class="site-foot">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="/" aria-label="Cultigen" style="font-family:var(--fd);font-size:1.5rem;font-weight:600;color:var(--on-dark)">cultigen.ai</a>
-        <p class="foot-tag">A course engine that turns frontier research into hands-on courses.</p>
-      </div>
-      <div>
-        <h5>Explore</h5>
-        <a href="/engine.html">Engine</a>
-        <a href="/brands.html">Course brands</a>
-        <a href="/story.html">Story</a>
-        <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
-      </div>
-      <div>
-        <h5>Connect</h5>
-        <a href="mailto:cultigen.ai@artineerade.com">Email us</a>
-        <a href="mailto:cultigen.ai@artineerade.com">Get involved</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© <span class="year">2026</span> Cultigen</span>
-      <span>Frontier research → hands-on courses</span>
-    </div>
-  </div>
-</footer>
 
 <script src="/assets/main.js" defer></script>
 </body>

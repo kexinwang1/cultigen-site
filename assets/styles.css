@@ -465,3 +465,23 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
 .home-paths .card{display:flex;flex-direction:column}
 .home-paths .card .go{margin-top:auto;padding-top:14px;font-weight:800;color:var(--coral-2);text-decoration:none}
 .home-paths .card .go:hover{text-decoration:underline}
+
+/* ── minimal pages (engine / brands / story) ────────────── */
+.menu-fab{position:fixed;top:16px;right:16px;z-index:1300;width:44px;height:44px;display:grid;place-items:center;
+  border-radius:12px;font-size:1.3rem;line-height:1;color:var(--ink);background:rgba(251,245,230,.85);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--paper-line);
+  box-shadow:var(--shadow-card);cursor:pointer}
+.menu-fab:hover{transform:translateY(-1px)}
+.simple-brand{position:fixed;top:24px;left:max(24px,4vw);z-index:1300;font-family:var(--fm);font-size:.82rem;
+  letter-spacing:.05em;color:var(--ink-2);text-decoration:none}
+.simple-brand:hover{color:var(--coral-2)}
+.simple{min-height:100vh;display:flex;align-items:center;padding:104px max(24px,6vw)}
+.simple-wrap{max-width:640px;margin-inline:auto}
+.simple .eyebrow-mono{font-family:var(--fm);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ink-2);margin-bottom:20px}
+.simple .lead{font-family:var(--fd);font-weight:600;font-size:clamp(1.3rem,2.6vw,1.65rem);line-height:1.25;
+  color:var(--ink);margin-bottom:20px;letter-spacing:-.005em}
+.simple p{font-size:1.06rem;line-height:1.72;color:var(--ink-2);margin-bottom:15px;max-width:60ch}
+.simple p strong{color:var(--ink)}
+.simple a.inline{color:var(--coral-2);text-decoration:underline;text-underline-offset:3px}
+.simple .sig{margin-top:24px;font-family:var(--fm);font-size:.8rem;color:var(--ink-2)}
