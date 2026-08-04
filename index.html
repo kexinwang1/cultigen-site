@@ -71,12 +71,46 @@
   .fh-arw{ color:var(--fh-glow); transition:transform .16s }
   .fh-brand:hover .fh-arw{ transform:translateX(3px) }
   .fh-stage{ position:relative; aspect-ratio:1/1; width:100%; max-width:460px; margin-inline:auto;
-    display:grid; place-items:center; cursor:pointer; }
+    display:grid; place-items:center; cursor:pointer; background:none; border:none; padding:0;
+    font:inherit; color:inherit; }
+  .fh-stage:focus-visible{ outline:2px solid var(--fh-glow); outline-offset:6px; border-radius:12px }
   .fh-stage canvas{ width:100%; height:100%; image-rendering:pixelated;
     filter:drop-shadow(6px 10px 10px var(--fh-shadow)); }
   .fh-note{ position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
     font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.14em;
     text-transform:uppercase; color:var(--fh-soft); white-space:nowrap; }
+  .fh-hint{ position:absolute; top:8px; right:10px; font-family:ui-monospace,Menlo,monospace;
+    font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; color:var(--fh-soft);
+    opacity:.7; pointer-events:none; }
+  /* course-sketch modal */
+  .fh-modal{ position:fixed; inset:0; z-index:2000; display:none; place-items:center; padding:20px;
+    background:color-mix(in srgb, var(--fh-ink) 52%, transparent); backdrop-filter:blur(3px); }
+  .fh-modal.open{ display:grid }
+  .fh-card{ position:relative; width:min(480px,100%); max-height:88vh; overflow:auto;
+    background:var(--fh-paper); border:1px solid var(--fh-line); border-radius:18px;
+    box-shadow:8px 12px 0 var(--fh-shadow); padding:26px; color:var(--fh-ink); }
+  .fh-card h3{ font-family:ui-serif,"Iowan Old Style",Palatino,Georgia,serif; font-weight:600; font-size:1.45rem; margin:0 0 4px }
+  .fh-card .csub{ font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--fh-soft); margin:0 0 18px }
+  .fh-field input[type=text]{ width:100%; border:1.5px solid var(--fh-line); border-radius:10px;
+    padding:11px 13px; font:inherit; background:#fff; color:var(--fh-ink) }
+  .fh-or{ text-align:center; font-size:.78rem; color:var(--fh-soft); margin:9px 0 }
+  .fh-upload{ display:block; border:1.5px dashed var(--fh-line); border-radius:10px; padding:13px;
+    text-align:center; cursor:pointer; color:var(--fh-soft); font-size:.9rem }
+  .fh-upload input{ display:none }
+  .fh-run{ width:100%; margin-top:14px; border:none; border-radius:100px; padding:13px; font:inherit;
+    font-weight:700; background:var(--fh-ink); color:var(--fh-paper); cursor:pointer }
+  .fh-run:disabled{ opacity:.6; cursor:default }
+  .fh-out{ margin-top:18px; display:none }
+  .fh-out h4{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:1.2rem; margin:0 0 4px }
+  .fh-out ul{ margin:.3em 0 1em; padding-left:18px; font-size:.92rem; line-height:1.5 }
+  .fh-out .tag{ font-family:ui-monospace,Menlo,monospace; font-size:.58rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--fh-glow); display:block; margin-top:6px }
+  .fh-cta2{ display:inline-block; margin-top:6px; background:var(--fh-glow); color:#fff; text-decoration:none;
+    font-weight:700; border-radius:100px; padding:12px 20px; font-size:.92rem }
+  .fh-x{ position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.5rem;
+    line-height:1; cursor:pointer; color:var(--fh-soft) }
+  .fh-x:focus-visible,.fh-run:focus-visible,.fh-upload:focus-within{ outline:2px solid var(--fh-glow); outline-offset:2px }
 </style>
 
 <link rel="canonical" href="https://cultigen.ai/" />
@@ -191,12 +225,27 @@
         </a>
       </div>
     </div>
-    <div class="fh-stage" id="fh-stage" role="img" aria-label="A pixel-art paper-cut engine: one source goes in and a lesson, an interactive, and a kit come out">
+    <button class="fh-stage" id="fh-stage" aria-label="Try the engine: sketch a course from a link or a PDF">
       <canvas id="fh-scene" width="160" height="160"></canvas>
+      <span class="fh-hint">click to try ↯</span>
       <span class="fh-note">one source → lesson · interactive · kit</span>
-    </div>
+    </button>
   </div>
 </section>
+
+<!-- course-sketch modal -->
+<div class="fh-modal" id="fh-modal" role="dialog" aria-modal="true" aria-label="Sketch a course with Cultigen">
+  <div class="fh-card">
+    <button class="fh-x" id="fh-x" aria-label="Close">×</button>
+    <h3>Sketch a course</h3>
+    <p class="csub">Paste a link or drop a PDF, and Cultigen sketches a hands-on course.</p>
+    <div class="fh-field"><input type="text" id="fh-url" placeholder="Paste a paper or product link…"></div>
+    <div class="fh-or">or</div>
+    <label class="fh-upload" id="fh-uplbl">Upload a PDF<input type="file" id="fh-pdf" accept="application/pdf"></label>
+    <button class="fh-run" id="fh-run">Run Cultigen →</button>
+    <div class="fh-out" id="fh-out"></div>
+  </div>
+</div>
 
 <!-- ═══ TWO THINGS IT DOES ═══ -->
 <section class="sec-cream">
@@ -346,7 +395,47 @@
   function onMove(e){ const r=stage.getBoundingClientRect(); const dx=(e.clientX-r.left)/r.width-.5, dy=(e.clientY-r.top)/r.height-.5; glowT=clamp(1-Math.hypot(dx,dy)*2.0); }
   stage.addEventListener('mousemove', onMove);
   stage.addEventListener('mouseleave', ()=> glowT=0);
-  stage.addEventListener('click', ()=>{ phase=0; run++; });
+
+  /* ── click the machine → sketch a course ─────────────── */
+  const modal=document.getElementById('fh-modal'), out=document.getElementById('fh-out'),
+        urlIn=document.getElementById('fh-url'), pdfIn=document.getElementById('fh-pdf'),
+        upLbl=document.getElementById('fh-uplbl'), runB=document.getElementById('fh-run'),
+        xB=document.getElementById('fh-x');
+  const openM=()=>{ modal.classList.add('open'); setTimeout(()=>urlIn.focus(),60); };
+  const closeM=()=>modal.classList.remove('open');
+  stage.addEventListener('click', ()=>{ phase=0; run++; openM(); });
+  xB.addEventListener('click', closeM);
+  modal.addEventListener('click', e=>{ if(e.target===modal) closeM(); });
+  addEventListener('keydown', e=>{ if(e.key==='Escape') closeM(); });
+  pdfIn.addEventListener('change', ()=>{ if(pdfIn.files[0]) upLbl.firstChild.textContent = '📄 '+pdfIn.files[0].name; });
+
+  const esc=s=>(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+  const cln=s=>s.replace(/[?#].*$/,'').replace(/\.[a-z0-9]{2,4}$/i,'').replace(/[-_+]+/g,' ').replace(/\s+/g,' ').trim();
+  const tc=s=>s.replace(/\b\w/g,c=>c.toUpperCase());
+  function topicFrom(url,file){
+    if(file) return tc(cln(file.name)) || 'your source';
+    if(url){ try{ const u=new URL(url); const seg=u.pathname.split('/').filter(Boolean).pop()||u.hostname.replace(/^www\./,''); return tc(cln(seg))||tc(cln(u.hostname)); }catch(e){ return tc(cln(url)); } }
+    return '';
+  }
+  function courseHTML(T,src){
+    T=T||'your source';
+    return '<span class="tag">A quick course sketch</span>'+
+      '<h4>'+esc(T)+', hands-on</h4>'+
+      '<p style="font-size:.88rem;color:var(--fh-soft);margin:.1em 0 .6em">Sketched from '+esc(src)+'.</p>'+
+      '<span class="tag">📖 Lesson</span><ul><li>Grasp the core idea behind '+esc(T)+'.</li>'+
+      '<li>See how it actually works, step by step.</li><li>Connect it to something you can build.</li></ul>'+
+      '<span class="tag">🎮 Interactive</span><ul><li>Adjust the key variables and watch the outcome change.</li></ul>'+
+      '<span class="tag">📦 Kit</span><ul><li>A buildable kit that brings '+esc(T)+' to your desk.</li></ul>'+
+      '<a class="fh-cta2" href="mailto:cultigen.ai@artineerade.com?subject=Teach%20my%20Cultigen%20course%20offline">Want your course taught offline, to real learners? Contact us →</a>';
+  }
+  runB.addEventListener('click', ()=>{
+    const file=pdfIn.files[0], url=(urlIn.value||'').trim();
+    if(!file && !url){ urlIn.focus(); urlIn.style.borderColor='var(--fh-glow)'; return; }
+    const T=topicFrom(url,file), src=file?file.name:url;
+    phase=0; run++; runB.disabled=true; runB.textContent='Sketching…'; out.style.display='none';
+    setTimeout(()=>{ out.innerHTML=courseHTML(T,src); out.style.display='block';
+      runB.disabled=false; runB.textContent='Run again →'; }, 1500);
+  });
 
   const chip=document.getElementById('fh-chip');
   if(chip){ const g=chip.getContext('2d'); const P=(a,b,w,h,col)=>{g.fillStyle=col;g.fillRect(a,b,w,h);};
