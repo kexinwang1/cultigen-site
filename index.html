@@ -62,8 +62,11 @@
     padding:9px 14px 9px 10px; box-shadow:3px 4px 0 var(--fh-shadow); transition:transform .16s, box-shadow .16s; }
   .fh-brand:hover{ transform:translate(-1px,-2px); box-shadow:5px 7px 0 var(--fh-shadow) }
   .fh-brand:focus-visible{ outline:2px solid var(--fh-glow); outline-offset:3px }
-  .fh-brand canvas{ width:38px; height:38px; image-rendering:pixelated; display:block;
-    border-radius:9px; background:color-mix(in srgb,var(--fh-glow) 14%,var(--fh-paper)); }
+  .fh-brand img{ width:40px; height:40px; display:block; border-radius:9px; object-fit:contain; }
+  .fh-logo{ display:inline-flex; align-items:center; gap:13px; text-decoration:none; color:var(--fh-ink); margin:0 0 4px; white-space:nowrap; }
+  .fh-logo img{ width:46px; height:46px; }
+  .fh-logo span{ font-family:ui-serif,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-weight:600; font-size:clamp(1.8rem,3.6vw,2.5rem); letter-spacing:-.01em; }
   .fh-bt{ display:flex; flex-direction:column; line-height:1.15 }
   .fh-bt small{ font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.16em;
     text-transform:uppercase; color:var(--fh-soft) }
@@ -187,11 +190,11 @@
       <a href="/engine.html">Engine</a>
       <a href="/brands.html">Course brands</a>
       <a href="/story.html">Story</a>
-      <a href="#contact">Contact</a>
+      <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
       <a href="https://funguylab.com/curriculum/" target="_blank" rel="noopener">FunguyLab ↗</a>
     </nav>
     <div class="nav-cta">
-      <a href="#contact" class="btn btn-primary btn-sm">Get involved →</a>
+      <a href="mailto:cultigen.ai@artineerade.com" class="btn btn-primary btn-sm">Get involved →</a>
       <button class="nav-toggle" aria-label="open menu" aria-expanded="false">☰</button>
     </div>
   </div>
@@ -201,9 +204,9 @@
   <a href="/engine.html">Engine</a>
   <a href="/brands.html">Course brands</a>
   <a href="/story.html">Story</a>
-  <a href="#contact">Contact</a>
+  <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
   <a href="https://funguylab.com/curriculum/" target="_blank" rel="noopener">FunguyLab ↗</a>
-  <a href="#contact" class="btn btn-primary">Get involved →</a>
+  <a href="mailto:cultigen.ai@artineerade.com" class="btn btn-primary">Get involved →</a>
 </nav>
 
 <main id="main">
@@ -212,16 +215,16 @@
 <section class="fh-hero" id="top">
   <div class="fh-inner">
     <div class="fh-copy">
-      <h1 class="fh-title">The frontier,<br>in your <em>hands.</em></h1>
+      <a class="fh-logo" href="/"><img src="/assets/logo-mark.svg" alt="Cultigen" width="46" height="46"><span>cultigen.ai</span></a>
       <p class="fh-lede">
         Cultigen turns the newest technology into hands-on courses you can build: a lesson, an interactive,
         and a kit. Every course is reviewed by the original researchers, so it's AI-generated but
         trustworthy and responsible.
       </p>
       <div class="fh-row">
-        <a class="fh-cta" href="#contact">Join our workshops →</a>
+        <a class="fh-cta" href="mailto:cultigen.ai@artineerade.com?subject=Joining%20a%20Cultigen%20workshop">Join our workshops →</a>
         <a class="fh-brand" href="https://funguylab.com/curriculum/" target="_blank" rel="noopener" aria-label="FunguyLab, our first course brand">
-          <canvas id="fh-chip" width="24" height="24"></canvas>
+          <img src="/assets/funguylab-avatar.png" alt="FunguyLab" width="40" height="40">
           <span class="fh-bt"><small>First course brand</small><b>FunguyLab <span class="fh-arw">→</span></b></span>
         </a>
       </div>
@@ -249,82 +252,7 @@
   </div>
 </div>
 
-<!-- ═══ TWO THINGS IT DOES ═══ -->
-<section class="sec-cream">
-  <div class="wrap">
-    <div class="shead center">
-      <h2>One engine. Two things<br>it does.</h2>
-      <p>Cultigen builds the course, and builds the brand it lives in.</p>
-    </div>
-    <div class="grid g2 home-paths">
-      <div class="card reveal">
-        <div class="ic moss"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tools"/></svg></div>
-        <h3>It builds the course</h3>
-        <p>
-          Give it a frontier paper, an industry process, or a product, and the engine returns a complete
-          hands-on course: a lesson, a working interactive, and a buildable kit, reviewed by experts in
-          the field.
-        </p>
-        <a href="/engine.html" class="go">See how the engine works →</a>
-      </div>
-      <div class="card reveal">
-        <div class="ic gold"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-package"/></svg></div>
-        <h3>It builds the brand</h3>
-        <p>
-          Cultigen doesn't stop at a lesson. It launches each course as a <strong>course brand</strong>
-          people can find, join, and love. FunguyLab is the first, and more are on the way.
-        </p>
-        <a href="/brands.html" class="go">Our course brands →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CTA ═══ -->
-<section class="sec-forest" id="contact">
-  <div class="wrap" style="text-align:center;max-width:720px;margin-inline:auto">
-    <h2>Join a hands-on workshop.</h2>
-    <p style="line-height:1.85;margin-top:16px">
-      We run hands-on workshops with community labs and makerspaces, where you build the frontier with your
-      own hands. We also work with educators, researchers, and early investors. Want to join a workshop,
-      collaborate, or just say hello? We'd love to hear from you.
-    </p>
-    <div class="btn-row" style="justify-content:center;margin-top:28px">
-      <a href="mailto:cultigen.ai@artineerade.com?subject=Joining%20a%20Cultigen%20workshop" class="btn btn-sun btn-lg">Join a workshop →</a>
-      <a href="mailto:cultigen.ai@artineerade.com?subject=Partnering%20with%20Cultigen" class="btn btn-ghost btn-lg">Partner or invest</a>
-    </div>
-  </div>
-</section>
-
 </main>
-
-<!-- ═══ FOOTER ═══ -->
-<footer class="site-foot">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a href="/" aria-label="Cultigen"><img class="foot-wordmark" src="/assets/logo-wordmark.svg" alt="Cultigen"></a>
-        <p class="foot-tag">A course engine that turns frontier research into hands-on courses.</p>
-      </div>
-      <div>
-        <h5>Explore</h5>
-        <a href="/engine.html">Engine</a>
-        <a href="/brands.html">Course brands</a>
-        <a href="/story.html">Story</a>
-        <a href="https://funguylab.com/curriculum/" target="_blank" rel="noopener">FunguyLab ↗</a>
-      </div>
-      <div>
-        <h5>Connect</h5>
-        <a href="mailto:cultigen.ai@artineerade.com">Email us</a>
-        <a href="#contact">Get involved</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© <span class="year">2026</span> Cultigen</span>
-      <span>Frontier research → hands-on courses</span>
-    </div>
-  </div>
-</footer>
 
 <script>
 /* pixel paper-cut engine hero (home only) */
