@@ -23,8 +23,8 @@
   .wk-eyebrow{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-size:.66rem; letter-spacing:.22em;
     text-transform:uppercase; color:var(--soft); margin:0 0 12px; display:flex; align-items:center; gap:10px; }
   .wk-eyebrow::before{ content:""; width:24px; height:1px; background:var(--line); }
-  .wk-lead{ font-family:ui-serif,"Iowan Old Style",Palatino,Georgia,serif; font-weight:600;
-    font-size:clamp(1.9rem,4.4vw,2.8rem); line-height:1.08; letter-spacing:-.01em; margin:0; color:var(--ink);
+  .wk-lead{ font-family:var(--fd); font-weight:600;
+    font-size:clamp(1.3rem,2.6vw,1.65rem); line-height:1.25; letter-spacing:-.005em; margin:0; color:var(--ink);
     text-wrap:balance; }
   .wk-sub{ margin:14px 0 0; max-width:52ch; font-size:1.02rem; line-height:1.6; color:color-mix(in srgb,var(--ink) 78%,transparent); }
 
@@ -56,6 +56,8 @@
   .wk-course{ display:inline-flex; align-items:center; gap:7px; font-size:.82rem; font-weight:600;
     color:var(--ink); margin-bottom:12px; }
   .wk-course img{ width:20px; height:20px; border-radius:5px; }
+  .wk-venue{ font-size:.86rem; color:color-mix(in srgb,var(--ink) 76%,transparent); margin-bottom:12px; }
+  .wk-venue b{ color:var(--ink); }
   .wk-status{ display:inline-flex; align-items:center; gap:7px; font-family:var(--fm,ui-monospace,Menlo,monospace);
     font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--soft); margin-bottom:14px; }
   .wk-dot{ width:7px; height:7px; border-radius:50%; background:var(--warm); box-shadow:0 0 0 3px color-mix(in srgb,var(--warm) 30%,transparent); }
@@ -91,7 +93,6 @@
 
 <main id="main" class="wk">
   <div class="wk-wrap">
-    <p class="wk-eyebrow">Workshops</p>
     <h1 class="wk-lead">Find a workshop in your city.</h1>
     <p class="wk-sub">Pick a course and your city, and join a hands-on cohort where you build the real thing
       with other people, guided by the team behind the course. New cities open as demand builds.</p>
@@ -128,11 +129,11 @@
 (function(){
   const BRANDS = { funguylab:{ name:'FunguyLab', avatar:'/assets/funguylab-avatar.png' } };
   const NODES = [
-    { course:'funguylab', city:'Baltimore',     region:'USA · Maryland',       status:'forming' },
+    { course:'funguylab', city:'New York',      region:'USA · New York',      venue:'Genspace', status:'forming' },
+    { course:'funguylab', city:'Baltimore',     region:'USA · Maryland',      venue:'BUGSS',    status:'forming' },
+    { course:'funguylab', city:'Shanghai',      region:'China',               venue:'MANA',     status:'forming' },
     { course:'funguylab', city:'Boston',        region:'USA · Massachusetts', status:'forming' },
-    { course:'funguylab', city:'New York',      region:'USA · New York',      status:'forming' },
     { course:'funguylab', city:'San Francisco', region:'USA · California',     status:'forming' },
-    { course:'funguylab', city:'Shanghai',      region:'China',                status:'forming' },
     { course:'funguylab', city:'London',        region:'United Kingdom',       status:'forming' },
     { course:'funguylab', city:'Tokyo',         region:'Japan',                status:'forming' }
   ];
@@ -178,6 +179,7 @@
         + '<h2 class="wk-city">'+esc(n.city)+'</h2>'
         + '<p class="wk-region">'+esc(n.region)+'</p>'
         + '<span class="wk-course"><img src="'+b.avatar+'" alt="" width="20" height="20">'+esc(b.name)+'</span>'
+        + (n.venue ? '<p class="wk-venue">Hosted at <b>'+esc(n.venue)+'</b></p>' : '')
         + '<span class="wk-status"><span class="wk-dot"></span>'+s.label+'</span>'
         + '<a class="wk-join" href="'+mail(n)+'">'+s.cta+'</a>'
         + '</article>';
