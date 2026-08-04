@@ -15,8 +15,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/styles.css" />
 <style id="wall">
-  .wall{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-  .frame{ position:absolute; width:clamp(98px,9.4vw,138px); pointer-events:auto; cursor:grab;
+  /* achievement pinboard (always visible) */
+  .board{ background:#efe6d3; border-top:1px solid #d8c8a8; padding:56px clamp(18px,5vw,48px) 72px; overflow:hidden;
+    background-image:radial-gradient(120% 70% at 80% 0%, color-mix(in srgb,#9b6bff 8%,transparent), transparent 60%); }
+  .board-lead{ width:min(1120px,100%); margin:0 auto 30px; font-family:var(--fd); font-weight:600;
+    font-size:clamp(1.15rem,2.4vw,1.5rem); letter-spacing:-.005em; color:#241d15; }
+  .board-lead .hint{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-weight:400; font-size:.62rem;
+    letter-spacing:.14em; text-transform:uppercase; color:#6f6350; margin-left:10px; }
+  .board-in{ position:relative; width:min(1120px,100%); margin-inline:auto; height:640px; }
+  .frame{ position:absolute; width:clamp(114px,11vw,148px); cursor:grab;
     transform:rotate(var(--rot,0deg)); background:#fff; padding:9px 9px 7px;
     border:3px solid #241d15; box-shadow:5px 6px 0 rgba(60,44,22,.20);
     transition:transform .22s cubic-bezier(.2,.8,.25,1), box-shadow .22s, filter .22s;
@@ -25,7 +32,7 @@
   .frame img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover;
     image-rendering:auto; -webkit-user-drag:none; background:#efe6d3; }
   .frame .cap{ display:block; margin-top:6px; font-family:var(--fm,ui-monospace,Menlo,monospace);
-    font-size:.56rem; letter-spacing:.09em; text-transform:uppercase; color:#6f6350; text-align:center; }
+    font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; color:#6f6350; text-align:center; }
   .frame .poster-face{ aspect-ratio:1/1; display:flex; flex-direction:column; justify-content:center;
     align-items:center; gap:7px; padding:12px; text-align:center;
     background:linear-gradient(150deg,#f3ecdb,#e7dcc3); }
@@ -33,11 +40,15 @@
     text-transform:uppercase; color:#7d51e0; }
   .frame .pf-name{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:.86rem;
     line-height:1.15; color:#241d15; }
-  .frame:hover{ transform:rotate(0deg) scale(1.09); box-shadow:8px 11px 0 rgba(60,44,22,.24); filter:saturate(1.04); z-index:6; }
-  .frame.dragging{ transition:none; cursor:grabbing; transform:rotate(0deg) scale(1.06); z-index:20;
+  .frame:hover{ transform:rotate(0deg) scale(1.08); box-shadow:8px 11px 0 rgba(60,44,22,.24); filter:saturate(1.04); z-index:6; }
+  .frame.dragging{ transition:none; cursor:grabbing; transform:rotate(0deg) scale(1.05); z-index:40;
     box-shadow:10px 14px 0 rgba(60,44,22,.26); filter:saturate(1.06); }
   .frame.thrown{ transition:none; transform:rotate(0deg); }
-  @media (max-width:1080px){ .wall{ display:none; } }
+  @media (max-width:900px){
+    .board-in{ height:auto; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
+    .frame{ position:static !important; left:auto !important; top:auto !important; width:clamp(128px,40vw,160px); cursor:default; }
+    .board-lead .hint{ display:none; }
+  }
 </style>
 </head>
 <body>
@@ -53,53 +64,7 @@
   <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
 </nav>
 
-<!-- FunguyLab achievement wall — draggable pixel frames (images from funguylab.com) -->
-<div class="wall" id="wall" aria-label="FunguyLab achievements">
-  <!-- left column -->
-  <figure class="frame" style="left:3%;top:6%;--rot:-5deg">
-    <img src="https://funguylab.com/assets/photos/fig-siggraph.jpg" alt="FunguyLab research figure" loading="lazy">
-    <figcaption class="cap">SIGGRAPH Asia · 2024</figcaption>
-  </figure>
-  <figure class="frame" style="left:1%;top:26%;--rot:5deg">
-    <img src="https://funguylab.com/assets/photos/reearth-award.png" alt="reEarth art prize" loading="lazy">
-    <figcaption class="cap">reEarth Jury Choice · 2025</figcaption>
-  </figure>
-  <figure class="frame" style="left:5%;top:46%;--rot:-4deg">
-    <img src="https://funguylab.com/assets/photos/reddit.jpg" alt="Front page of r/mycology" loading="lazy">
-    <figcaption class="cap">#1 on r/mycology</figcaption>
-  </figure>
-  <figure class="frame" style="left:2%;top:65%;--rot:6deg">
-    <img src="https://funguylab.com/assets/photos/waic-mana2.jpg" alt="FunguyLab at WAIC Shanghai" loading="lazy">
-    <figcaption class="cap">WAIC Shanghai · 2026</figcaption>
-  </figure>
-  <figure class="frame poster" style="left:6%;top:84%;--rot:-3deg">
-    <div class="poster-face"><span class="pf-tag">Upcoming</span><span class="pf-name">Berlin New<br>Media Week</span></div>
-    <figcaption class="cap">2026 · Exhibiting</figcaption>
-  </figure>
-  <!-- right column -->
-  <figure class="frame" style="left:85%;top:8%;--rot:5deg">
-    <img src="https://funguylab.com/assets/photos/hackaday.jpg" alt="FunguyLab on Hackaday" loading="lazy">
-    <figcaption class="cap">Featured on Hackaday</figcaption>
-  </figure>
-  <figure class="frame" style="left:82%;top:28%;--rot:-4deg">
-    <img src="https://funguylab.com/assets/photos/mit-act.jpg" alt="FunguyLab at MIT ACT" loading="lazy">
-    <figcaption class="cap">MIT ACT · The Cube</figcaption>
-  </figure>
-  <figure class="frame" style="left:87%;top:48%;--rot:4deg">
-    <img src="https://funguylab.com/assets/photos/biofab2.jpg" alt="FunguyLab at BioFabricate" loading="lazy">
-    <figcaption class="cap">BioFabricate Summit</figcaption>
-  </figure>
-  <figure class="frame" style="left:83%;top:67%;--rot:-6deg">
-    <img src="https://funguylab.com/assets/photos/csc-logo.jpg" alt="Cambridge Science Carnival" loading="lazy">
-    <figcaption class="cap">Cambridge Science Carnival</figcaption>
-  </figure>
-  <figure class="frame poster" style="left:86%;top:85%;--rot:4deg">
-    <div class="poster-face"><span class="pf-tag">Upcoming</span><span class="pf-name">Shanghai<br>Bund Summit</span></div>
-    <figcaption class="cap">2026 · Exhibiting</figcaption>
-  </figure>
-</div>
-
-<main id="main" class="simple" style="position:relative;z-index:1">
+<main id="main" class="simple">
   <div class="simple-wrap">    <p class="lead">Cultigen doesn't stop at a lesson.</p>
     <p>It launches each course as a <strong>course brand</strong>: something with a name, an identity, and a
       community that people are proud to be part of and want to share.</p>
@@ -110,20 +75,79 @@
   </div>
 </main>
 
+<!-- FunguyLab achievement pinboard — draggable pixel frames (images from funguylab.com) -->
+<section class="board" aria-label="What FunguyLab has done">
+  <p class="board-lead">FunguyLab, so far.<span class="hint">Drag the frames</span></p>
+  <div class="board-in" id="board-in">
+    <figure class="frame" style="left:2%;top:1%;--rot:-4deg">
+      <img src="https://funguylab.com/assets/photos/fig-siggraph.jpg" alt="FunguyLab research figure" loading="lazy">
+      <figcaption class="cap">SIGGRAPH Asia · 2024</figcaption>
+    </figure>
+    <figure class="frame" style="left:22%;top:2%;--rot:3deg">
+      <img src="https://funguylab.com/assets/photos/reearth-award.png" alt="reEarth art prize" loading="lazy">
+      <figcaption class="cap">reEarth Jury Choice · 2025</figcaption>
+    </figure>
+    <figure class="frame" style="left:44%;top:0%;--rot:-3deg">
+      <img src="https://funguylab.com/assets/photos/hackaday.jpg" alt="FunguyLab on Hackaday" loading="lazy">
+      <figcaption class="cap">Featured on Hackaday</figcaption>
+    </figure>
+    <figure class="frame" style="left:66%;top:2%;--rot:4deg">
+      <img src="https://funguylab.com/assets/photos/mit-act.jpg" alt="FunguyLab at MIT ACT" loading="lazy">
+      <figcaption class="cap">MIT ACT · The Cube</figcaption>
+    </figure>
+    <figure class="frame" style="left:86%;top:1%;--rot:-5deg">
+      <img src="https://funguylab.com/assets/photos/biofab2.jpg" alt="FunguyLab at BioFabricate" loading="lazy">
+      <figcaption class="cap">BioFabricate Summit</figcaption>
+    </figure>
+    <figure class="frame" style="left:10%;top:33%;--rot:5deg">
+      <img src="https://funguylab.com/assets/photos/reddit.jpg" alt="Front page of r/mycology" loading="lazy">
+      <figcaption class="cap">#1 on r/mycology</figcaption>
+    </figure>
+    <figure class="frame" style="left:32%;top:35%;--rot:-4deg">
+      <img src="https://funguylab.com/assets/photos/waic-mana2.jpg" alt="FunguyLab at WAIC Shanghai" loading="lazy">
+      <figcaption class="cap">WAIC Shanghai · 2026</figcaption>
+    </figure>
+    <figure class="frame" style="left:55%;top:33%;--rot:3deg">
+      <img src="https://funguylab.com/assets/photos/bugss.jpg" alt="FunguyLab at BUGSS Baltimore" loading="lazy">
+      <figcaption class="cap">BUGSS Science Slam · 2026</figcaption>
+    </figure>
+    <figure class="frame" style="left:78%;top:35%;--rot:-5deg">
+      <img src="https://funguylab.com/assets/photos/csc-logo.jpg" alt="Cambridge Science Carnival" loading="lazy">
+      <figcaption class="cap">Cambridge Science Carnival</figcaption>
+    </figure>
+    <figure class="frame" style="left:2%;top:66%;--rot:4deg">
+      <img src="https://funguylab.com/assets/photos/slimecolor6.jpg" alt="Slime mold dyeing kit with Yewei Jun" loading="lazy">
+      <figcaption class="cap">Slime dye kit × Yewei Jun</figcaption>
+    </figure>
+    <figure class="frame poster" style="left:24%;top:67%;--rot:-3deg">
+      <div class="poster-face"><span class="pf-tag">Brown · 2024</span><span class="pf-name">Hazeltine<br>Maker Grant</span></div>
+      <figcaption class="cap">Research funding</figcaption>
+    </figure>
+    <figure class="frame poster" style="left:47%;top:66%;--rot:5deg">
+      <div class="poster-face"><span class="pf-tag">Upcoming</span><span class="pf-name">Berlin New<br>Media Week</span></div>
+      <figcaption class="cap">2026 · Exhibiting</figcaption>
+    </figure>
+    <figure class="frame poster" style="left:70%;top:67%;--rot:-4deg">
+      <div class="poster-face"><span class="pf-tag">Upcoming</span><span class="pf-name">Shanghai<br>Bund Summit</span></div>
+      <figcaption class="cap">2026 · Exhibiting</figcaption>
+    </figure>
+  </div>
+</section>
+
 <script>
-/* draggable achievement frames (pointer) */
+/* draggable achievement frames (desktop pointer) */
 (function(){
-  const wall = document.getElementById('wall');
-  if(!wall || matchMedia('(pointer:coarse)').matches) return;
+  const board = document.getElementById('board-in');
+  if(!board || !matchMedia('(min-width:901px) and (pointer:fine)').matches) return;
   let top = 30;
-  wall.querySelectorAll('.frame').forEach(f => {
+  board.querySelectorAll('.frame').forEach(f => {
     let sx, sy, ox, oy, moved;
     f.addEventListener('pointerdown', e => {
       e.preventDefault();
-      const r = f.getBoundingClientRect();
-      // pin to pixel coords so drag is absolute, not affected by % + transform
-      f.style.left = r.left + 'px'; f.style.top = r.top + 'px'; f.style.right = 'auto';
-      sx = e.clientX; sy = e.clientY; ox = r.left; oy = r.top; moved = false;
+      const br = board.getBoundingClientRect(), r = f.getBoundingClientRect();
+      ox = r.left - br.left; oy = r.top - br.top;            // position relative to board
+      f.style.left = ox + 'px'; f.style.top = oy + 'px'; f.style.right = 'auto';
+      sx = e.clientX; sy = e.clientY; moved = false;
       f.setPointerCapture(e.pointerId);
       f.classList.add('dragging'); f.classList.remove('thrown');
       f.style.zIndex = ++top;
@@ -133,12 +157,12 @@
       const dx = e.clientX - sx, dy = e.clientY - sy;
       if(Math.abs(dx) + Math.abs(dy) > 3) moved = true;
       f.style.left = (ox + dx) + 'px';
-      f.style.top  = Math.max(4, oy + dy) + 'px';
+      f.style.top  = (oy + dy) + 'px';
     });
-    const end = e => {
+    const end = () => {
       if(!f.classList.contains('dragging')) return;
       f.classList.remove('dragging');
-      if(moved) f.classList.add('thrown'); // keep resting transform flat where dropped
+      if(moved) f.classList.add('thrown');
     };
     f.addEventListener('pointerup', end);
     f.addEventListener('pointercancel', end);

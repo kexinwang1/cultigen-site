@@ -13,6 +13,15 @@
 <link rel="canonical" href="https://cultigen.ai/story.html" />
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/styles.css" />
+<link rel="dns-prefetch" href="https://funguylab.com" />
+<style id="story">
+  .story-portrait{ float:right; width:clamp(132px,20vw,190px); margin:6px 0 14px 28px; }
+  .story-portrait img{ width:100%; aspect-ratio:4/5; object-fit:cover; display:block; border:3px solid var(--ink);
+    box-shadow:6px 7px 0 rgba(60,44,22,.18); border-radius:5px; background:#efe6d3; }
+  .story-portrait figcaption{ margin-top:9px; font-family:var(--fm); font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-2); text-align:center; }
+  @media (max-width:560px){ .story-portrait{ float:none; margin:0 auto 24px; } }
+</style>
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
@@ -28,7 +37,12 @@
 </nav>
 
 <main id="main" class="simple">
-  <div class="simple-wrap">    <p class="lead">Why I'm building Cultigen.</p>
+  <div class="simple-wrap">
+    <figure class="story-portrait">
+      <img src="https://funguylab.com/assets/photos/founder.jpg" alt="Kexin Wang, founder of Cultigen" loading="lazy">
+      <figcaption>Kexin Wang · MIT CSAIL</figcaption>
+    </figure>
+    <p class="lead">Why I'm building Cultigen.</p>
     <p>In about a year, I taught myself from fashion design into engineering, from a first research job at
       Tsinghua to Brown, RISD, and MIT. None of it came from a normal path. It came from getting my hands on
       the real thing, early.</p>
