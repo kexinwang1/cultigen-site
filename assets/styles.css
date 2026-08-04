@@ -443,3 +443,16 @@ section{position:relative;padding:clamp(72px,10vw,130px) 0}
     transition-duration:.001ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
 }
+
+/* ── multi-page: centered hero + sub-page headers ───────── */
+.hero.center .hero-inner{max-width:840px;margin-inline:auto;text-align:center}
+.hero.center .hero-lede{margin-inline:auto;max-width:680px}
+.hero.center .btn-row{justify-content:center}
+.page-head{padding:150px 0 56px;background:#fbf5e6}
+.page-head .wrap{max-width:860px}
+.page-head .eyebrow{color:var(--coral-2);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+.page-head h1{font-family:var(--fd);font-weight:700;font-size:clamp(2rem,5vw,3rem);line-height:1.08;margin:0;color:var(--ink)}
+.page-head p{margin-top:16px;font-size:1.1rem;color:var(--ink-2);max-width:680px;line-height:1.65}
+.home-paths .card{display:flex;flex-direction:column}
+.home-paths .card .go{margin-top:auto;padding-top:14px;font-weight:800;color:var(--coral-2);text-decoration:none}
+.home-paths .card .go:hover{text-decoration:underline}
