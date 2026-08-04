@@ -34,7 +34,7 @@
     background:var(--fh-paper);
     background-image:
       radial-gradient(120% 90% at 76% 22%, color-mix(in srgb, var(--fh-glow) 10%, transparent), transparent 60%),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='140' height='140' filter='url(%23n)' opacity='0.45'/></svg>");
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='0.72'/></svg>");
     background-blend-mode:normal, multiply;
   }
   .fh-inner{ width:min(1120px,100%); margin-inline:auto; display:grid;
@@ -92,33 +92,59 @@
     opacity:.7; pointer-events:none; }
   /* course-sketch modal */
   .fh-modal{ position:fixed; inset:0; z-index:2000; display:none; place-items:center; padding:20px;
-    background:color-mix(in srgb, var(--fh-ink) 52%, transparent); backdrop-filter:blur(3px); }
-  .fh-modal.open{ display:grid }
-  .fh-card{ position:relative; width:min(480px,100%); max-height:88vh; overflow:auto;
-    background:var(--fh-paper); border:1px solid var(--fh-line); border-radius:18px;
-    box-shadow:8px 12px 0 var(--fh-shadow); padding:26px; color:var(--fh-ink); }
-  .fh-card h3{ font-family:ui-serif,"Iowan Old Style",Palatino,Georgia,serif; font-weight:600; font-size:1.45rem; margin:0 0 4px }
-  .fh-card .csub{ font-family:ui-monospace,Menlo,monospace; font-size:.62rem; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--fh-soft); margin:0 0 18px }
-  .fh-field input[type=text]{ width:100%; border:1.5px solid var(--fh-line); border-radius:10px;
-    padding:11px 13px; font:inherit; background:#fff; color:var(--fh-ink) }
-  .fh-or{ text-align:center; font-size:.78rem; color:var(--fh-soft); margin:9px 0 }
-  .fh-upload{ display:block; border:1.5px dashed var(--fh-line); border-radius:10px; padding:13px;
-    text-align:center; cursor:pointer; color:var(--fh-soft); font-size:.9rem }
+    background:color-mix(in srgb, var(--fh-ink) 58%, transparent);
+    -webkit-backdrop-filter:blur(14px) saturate(1.1); backdrop-filter:blur(14px) saturate(1.1); }
+  .fh-modal.open{ display:grid; animation:fhpop .22s ease }
+  @keyframes fhpop{ from{ opacity:0; transform:scale(.985) } to{ opacity:1; transform:none } }
+  .fh-card{ position:relative; width:min(460px,100%); max-height:88vh; overflow:auto;
+    background:linear-gradient(180deg,#fefaf0,var(--fh-paper)); border:1px solid var(--fh-line); border-radius:22px;
+    box-shadow:0 30px 70px -20px rgba(40,28,10,.55); padding:30px 28px; color:var(--fh-ink); }
+  .fh-card h3{ font-family:ui-serif,"Iowan Old Style",Palatino,Georgia,serif; font-weight:600; font-size:1.55rem; margin:0 0 5px; letter-spacing:-.01em }
+  .fh-card .csub{ font-size:.92rem; line-height:1.5; color:var(--fh-soft); margin:0 0 20px }
+  .fh-flabel{ display:block; font-family:ui-monospace,Menlo,monospace; font-size:.56rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--fh-soft); margin:0 0 7px }
+  .fh-field input[type=text]{ width:100%; border:1.5px solid var(--fh-line); border-radius:12px;
+    padding:13px 15px; font:inherit; font-size:.95rem; background:#fff; color:var(--fh-ink);
+    transition:border-color .15s, box-shadow .15s }
+  .fh-field input[type=text]:focus{ outline:none; border-color:var(--fh-glow);
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--fh-glow) 20%,transparent) }
+  .fh-or{ display:flex; align-items:center; gap:12px; font-family:ui-monospace,Menlo,monospace;
+    font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--fh-soft); margin:16px 0 }
+  .fh-or::before,.fh-or::after{ content:""; flex:1; height:1px; background:var(--fh-line) }
+  .fh-upload{ display:flex; align-items:center; justify-content:center; gap:9px; border:1.5px dashed var(--fh-line);
+    border-radius:12px; padding:16px; text-align:center; cursor:pointer; color:var(--fh-soft); font-size:.92rem;
+    background:color-mix(in srgb,var(--fh-glow) 4%,#fff); transition:border-color .15s, background .15s, color .15s }
+  .fh-upload:hover{ border-color:var(--fh-glow); color:var(--fh-ink); background:color-mix(in srgb,var(--fh-glow) 8%,#fff) }
   .fh-upload input{ display:none }
-  .fh-run{ width:100%; margin-top:14px; border:none; border-radius:100px; padding:13px; font:inherit;
-    font-weight:700; background:var(--fh-ink); color:var(--fh-paper); cursor:pointer }
-  .fh-run:disabled{ opacity:.6; cursor:default }
-  .fh-out{ margin-top:18px; display:none }
-  .fh-out h4{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:1.2rem; margin:0 0 4px }
-  .fh-out ul{ margin:.3em 0 1em; padding-left:18px; font-size:.92rem; line-height:1.5 }
+  .fh-run{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; margin-top:18px;
+    border:none; border-radius:100px; padding:15px; font:inherit; font-weight:700; font-size:1rem; cursor:pointer;
+    color:#fff; background:linear-gradient(135deg,var(--fh-glow),#7d51e0);
+    box-shadow:0 8px 20px -6px color-mix(in srgb,var(--fh-glow) 70%,transparent); transition:transform .14s, box-shadow .2s }
+  .fh-run:hover{ transform:translateY(-1px); box-shadow:0 12px 26px -6px color-mix(in srgb,var(--fh-glow) 75%,transparent) }
+  .fh-run:disabled{ opacity:.7; cursor:default; transform:none }
+  .fh-out{ margin-top:22px; display:none; border-top:1px solid var(--fh-line); padding-top:18px }
+  .fh-out h4{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:1.25rem; margin:0 0 4px }
+  .fh-out ul{ margin:.3em 0 1em; padding-left:18px; font-size:.92rem; line-height:1.55 }
   .fh-out .tag{ font-family:ui-monospace,Menlo,monospace; font-size:.58rem; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--fh-glow); display:block; margin-top:6px }
-  .fh-cta2{ display:inline-block; margin-top:6px; background:var(--fh-glow); color:#fff; text-decoration:none;
-    font-weight:700; border-radius:100px; padding:12px 20px; font-size:.92rem }
-  .fh-x{ position:absolute; top:14px; right:16px; background:none; border:none; font-size:1.5rem;
+    text-transform:uppercase; color:var(--fh-glow); display:block; margin-top:10px; font-weight:500 }
+  /* lead form — sends straight to Cultigen, no email client */
+  .fh-lead{ margin-top:18px; background:color-mix(in srgb,var(--fh-glow) 9%,var(--fh-paper));
+    border:1px solid color-mix(in srgb,var(--fh-glow) 32%,var(--fh-line)); border-radius:16px; padding:18px }
+  .fh-lead-t{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:1.1rem; margin:0 0 3px; color:var(--fh-ink) }
+  .fh-lead-s{ font-size:.85rem; color:var(--fh-soft); margin:0 0 14px; line-height:1.45 }
+  .fh-lead input{ width:100%; border:1.5px solid var(--fh-line); border-radius:10px; padding:11px 13px;
+    font:inherit; font-size:.92rem; background:#fff; color:var(--fh-ink); margin-bottom:9px }
+  .fh-lead input:focus{ outline:none; border-color:var(--fh-glow); box-shadow:0 0 0 3px color-mix(in srgb,var(--fh-glow) 18%,transparent) }
+  .fh-lead button{ width:100%; border:none; border-radius:100px; padding:13px; font:inherit; font-weight:700;
+    font-size:.95rem; color:#fff; background:var(--fh-ink); cursor:pointer; transition:background .18s, transform .14s }
+  .fh-lead button:hover{ transform:translateY(-1px); background:color-mix(in srgb,var(--fh-ink) 84%,var(--fh-glow)) }
+  .fh-lead button:disabled{ opacity:.7; cursor:default }
+  .fh-err{ display:block; color:#c0392b; font-size:.8rem; margin-top:8px }
+  .fh-thanks{ margin:0; font-family:ui-serif,Palatino,Georgia,serif; font-size:1.08rem; color:var(--fh-ink); text-align:center; padding:10px 0 }
+  .fh-x{ position:absolute; top:16px; right:18px; background:none; border:none; font-size:1.6rem;
     line-height:1; cursor:pointer; color:var(--fh-soft) }
-  .fh-x:focus-visible,.fh-run:focus-visible,.fh-upload:focus-within{ outline:2px solid var(--fh-glow); outline-offset:2px }
+  .fh-x:hover{ color:var(--fh-ink) }
+  .fh-x:focus-visible,.fh-run:focus-visible,.fh-upload:focus-within,.fh-lead button:focus-visible{ outline:2px solid var(--fh-glow); outline-offset:2px }
 </style>
 
 <link rel="canonical" href="https://cultigen.ai/" />
@@ -229,10 +255,13 @@
   <div class="fh-card">
     <button class="fh-x" id="fh-x" aria-label="Close">×</button>
     <h3>Sketch a course</h3>
-    <p class="csub">Paste a link or drop a PDF, and Cultigen sketches a hands-on course.</p>
-    <div class="fh-field"><input type="text" id="fh-url" placeholder="Paste a paper or product link…"></div>
+    <p class="csub">Paste a link or drop a PDF, and Cultigen sketches a hands-on course in seconds.</p>
+    <div class="fh-field">
+      <label class="fh-flabel" for="fh-url">Paper or product link</label>
+      <input type="text" id="fh-url" placeholder="https://…">
+    </div>
     <div class="fh-or">or</div>
-    <label class="fh-upload" id="fh-uplbl">Upload a PDF<input type="file" id="fh-pdf" accept="application/pdf"></label>
+    <label class="fh-upload" id="fh-uplbl"><span aria-hidden="true">📄</span> Upload a PDF<input type="file" id="fh-pdf" accept="application/pdf"></label>
     <button class="fh-run" id="fh-run">Run Cultigen →</button>
     <div class="fh-out" id="fh-out"></div>
   </div>
@@ -342,7 +371,19 @@
       '<li>See how it actually works, step by step.</li><li>Connect it to something you can build.</li></ul>'+
       '<span class="tag">🎮 Interactive</span><ul><li>Adjust the key variables and watch the outcome change.</li></ul>'+
       '<span class="tag">📦 Kit</span><ul><li>A buildable kit that brings '+esc(T)+' to your desk.</li></ul>'+
-      '<a class="fh-cta2" href="mailto:cultigen.ai@artineerade.com?subject=Teach%20my%20Cultigen%20course%20offline">Want your course taught offline, to real learners? Contact us →</a>';
+      '<form class="fh-lead" id="fh-lead">'+
+        '<p class="fh-lead-t">Want this taught offline, to real learners?</p>'+
+        '<p class="fh-lead-s">Leave your details and we’ll bring a Cultigen workshop to you. No email app needed.</p>'+
+        '<input type="hidden" name="_subject" value="New offline-course lead — cultigen.ai">'+
+        '<input type="hidden" name="_captcha" value="false">'+
+        '<input type="hidden" name="Course sketch" value="'+esc(T)+'">'+
+        '<input type="hidden" name="Source" value="'+esc(src)+'">'+
+        '<input type="text" name="Name" placeholder="Your name" required autocomplete="name">'+
+        '<input type="email" name="Email" placeholder="Email" required autocomplete="email">'+
+        '<input type="text" name="City" placeholder="Your city (optional)" autocomplete="address-level2">'+
+        '<button type="submit">Send to Cultigen →</button>'+
+        '<span class="fh-err" role="alert"></span>'+
+      '</form>';
   }
   runB.addEventListener('click', ()=>{
     const file=pdfIn.files[0], url=(urlIn.value||'').trim();
@@ -351,6 +392,24 @@
     phase=0; run++; runB.disabled=true; runB.textContent='Sketching…'; out.style.display='none';
     setTimeout(()=>{ out.innerHTML=courseHTML(T,src); out.style.display='block';
       runB.disabled=false; runB.textContent='Run again →'; }, 1500);
+  });
+
+  /* lead form → send straight to Cultigen (FormSubmit AJAX, no email client) */
+  out.addEventListener('submit', function(e){
+    const f=e.target; if(!f.classList || !f.classList.contains('fh-lead')) return;
+    e.preventDefault();
+    const btn=f.querySelector('button'), err=f.querySelector('.fh-err');
+    err.textContent=''; btn.disabled=true; btn.textContent='Sending…';
+    const data={}; new FormData(f).forEach((v,k)=>{ data[k]=v; });
+    fetch('https://formsubmit.co/ajax/cultigen.ai@artineerade.com',{
+      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify(data)
+    }).then(r=>r.json()).then(j=>{
+      if(j && (j.success===true || j.success==='true')){
+        f.innerHTML='<p class="fh-thanks">Thanks — we’ll be in touch soon. ✷</p>';
+      } else { throw new Error('unsent'); }
+    }).catch(()=>{ btn.disabled=false; btn.textContent='Send to Cultigen →';
+      err.textContent='Could not send just now — email cultigen.ai@artineerade.com'; });
   });
 
   const chip=document.getElementById('fh-chip');
