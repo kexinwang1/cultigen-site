@@ -295,4 +295,34 @@
     runBtn.addEventListener('click', run);
   }
 
+  /* ── Pixel dot-matrix wordmarks (canvas.pixel-word) ───── */
+  document.querySelectorAll('canvas.pixel-word').forEach(cv => {
+    const text = cv.dataset.text || 'cultigen.ai';
+    const dispH = +(cv.dataset.h || 40);
+    function render() {
+      const ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const fontPx = Math.round(dispH * 1.02);
+      const cell = Math.max(3, Math.round(dispH / 11)), dotR = cell * 0.42;
+      const m = document.createElement('canvas'), mx = m.getContext('2d');
+      const font = '800 ' + fontPx + 'px ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif';
+      mx.font = font;
+      const tw = Math.ceil(mx.measureText(text).width) + 2, th = Math.ceil(fontPx * 1.25);
+      m.width = tw; m.height = th;
+      mx.font = font; mx.textBaseline = 'middle'; mx.fillStyle = '#000'; mx.fillText(text, 1, th / 2);
+      const d = mx.getImageData(0, 0, tw, th).data, dots = [];
+      for (let y = 0; y < th; y += cell) for (let x = 0; x < tw; x += cell)
+        if (d[(y * tw + x) * 4 + 3] > 90) dots.push([x, y]);
+      const scale = dispH / th, W = Math.ceil(tw * scale);
+      cv.style.width = W + 'px'; cv.style.height = dispH + 'px';
+      cv.width = W * dpr; cv.height = dispH * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const g = ctx.createLinearGradient(0, 0, W, 0);
+      g.addColorStop(0, '#22c55e'); g.addColorStop(0.42, '#7ed957'); g.addColorStop(1, '#9b6bff');
+      ctx.fillStyle = g;
+      for (const p of dots) { ctx.beginPath(); ctx.arc(p[0] * scale, p[1] * scale, dotR * scale, 0, 7); ctx.fill(); }
+    }
+    render();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
+  });
+
 })();
