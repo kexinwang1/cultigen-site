@@ -549,8 +549,8 @@
   function draw(){
     if(!W||!H) return;
     ctx.clearRect(0,0,W,H);
-    ctx.fillStyle='rgba(111,99,80,0.26)';
-    for(const d of dots) ctx.fillRect(d[0]-0.9,d[1]-0.9,1.8,1.8);
+    ctx.fillStyle='rgba(101,89,70,0.4)';
+    for(const d of dots) ctx.fillRect(d[0]-1,d[1]-1,2,2);
     NODES.forEach((n,i)=>{
       const p=proj(n[0],n[1]), pulse=0.5+0.5*Math.sin(t*0.12+i);
       ctx.fillStyle='rgba(155,107,255,'+(0.16+0.16*pulse)+')';
