@@ -362,6 +362,25 @@
     if(url){ try{ const u=new URL(url); const seg=u.pathname.split('/').filter(Boolean).pop()||u.hostname.replace(/^www\./,''); return tc(cln(seg))||tc(cln(u.hostname)); }catch(e){ return tc(cln(url)); } }
     return '';
   }
+  /* ↓ paste your Cloudflare Worker URL here to enable real Claude generation.
+     Leave '' and the demo falls back to the local template (site never breaks). */
+  const SKETCH_ENDPOINT = '';
+
+  function leadForm(T,src){
+    return '<form class="fh-lead" id="fh-lead">'+
+      '<p class="fh-lead-t">Want this taught offline, to real learners?</p>'+
+      '<p class="fh-lead-s">Leave your details and we’ll bring a Cultigen workshop to you. No email app needed.</p>'+
+      '<input type="hidden" name="_subject" value="New offline-course lead — cultigen.ai">'+
+      '<input type="hidden" name="_captcha" value="false">'+
+      '<input type="hidden" name="Course" value="'+esc(T)+'">'+
+      '<input type="hidden" name="Source" value="'+esc(src)+'">'+
+      '<input type="text" name="Name" placeholder="Your name" required autocomplete="name">'+
+      '<input type="email" name="Email" placeholder="Email" required autocomplete="email">'+
+      '<input type="text" name="City" placeholder="Your city (optional)" autocomplete="address-level2">'+
+      '<button type="submit">Send to Cultigen →</button>'+
+      '<span class="fh-err" role="alert"></span>'+
+    '</form>';
+  }
   function courseHTML(T,src){
     T=T||'your source';
     return '<span class="tag">A quick course sketch</span>'+
@@ -371,27 +390,38 @@
       '<li>See how it actually works, step by step.</li><li>Connect it to something you can build.</li></ul>'+
       '<span class="tag">🎮 Interactive</span><ul><li>Adjust the key variables and watch the outcome change.</li></ul>'+
       '<span class="tag">📦 Kit</span><ul><li>A buildable kit that brings '+esc(T)+' to your desk.</li></ul>'+
-      '<form class="fh-lead" id="fh-lead">'+
-        '<p class="fh-lead-t">Want this taught offline, to real learners?</p>'+
-        '<p class="fh-lead-s">Leave your details and we’ll bring a Cultigen workshop to you. No email app needed.</p>'+
-        '<input type="hidden" name="_subject" value="New offline-course lead — cultigen.ai">'+
-        '<input type="hidden" name="_captcha" value="false">'+
-        '<input type="hidden" name="Course sketch" value="'+esc(T)+'">'+
-        '<input type="hidden" name="Source" value="'+esc(src)+'">'+
-        '<input type="text" name="Name" placeholder="Your name" required autocomplete="name">'+
-        '<input type="email" name="Email" placeholder="Email" required autocomplete="email">'+
-        '<input type="text" name="City" placeholder="Your city (optional)" autocomplete="address-level2">'+
-        '<button type="submit">Send to Cultigen →</button>'+
-        '<span class="fh-err" role="alert"></span>'+
-      '</form>';
+      leadForm(T,src);
   }
-  runB.addEventListener('click', ()=>{
+  function planHTML(p,src){
+    p=p||{}; const mods=Array.isArray(p.modules)?p.modules:[];
+    const title=p.title||'Your course';
+    return '<span class="tag">Course plan · generated</span>'+
+      '<h4>'+esc(title)+'</h4>'+
+      (p.summary?'<p style="font-size:.9rem;color:var(--fh-soft);margin:.1em 0 .7em">'+esc(p.summary)+'</p>':'')+
+      '<span class="tag">📖 Lessons</span><ul>'+
+        (mods.length?mods.map(m=>'<li><b>'+esc(m.name||'')+'</b>'+(m.goal?' — '+esc(m.goal):'')+'</li>').join('')
+                    :'<li>Core ideas, step by step.</li>')+'</ul>'+
+      (p.interactive?'<span class="tag">🎮 Interactive</span><ul><li>'+esc(p.interactive)+'</li></ul>':'')+
+      (p.kit?'<span class="tag">📦 Kit</span><ul><li>'+esc(p.kit)+'</li></ul>':'')+
+      leadForm(title,src);
+  }
+  async function generate(T,src,url,file){
+    if(!SKETCH_ENDPOINT){ await new Promise(r=>setTimeout(r,1300)); return courseHTML(T,src); }
+    const res=await fetch(SKETCH_ENDPOINT,{ method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ url:url||'', topic:T, filename:file?file.name:'' }) });
+    if(!res.ok) throw new Error('gen '+res.status);
+    const plan=await res.json();
+    if(plan && plan.error) throw new Error(plan.error);
+    return planHTML(plan,src);
+  }
+  runB.addEventListener('click', async ()=>{
     const file=pdfIn.files[0], url=(urlIn.value||'').trim();
     if(!file && !url){ urlIn.focus(); urlIn.style.borderColor='var(--fh-glow)'; return; }
     const T=topicFrom(url,file), src=file?file.name:url;
-    phase=0; run++; runB.disabled=true; runB.textContent='Sketching…'; out.style.display='none';
-    setTimeout(()=>{ out.innerHTML=courseHTML(T,src); out.style.display='block';
-      runB.disabled=false; runB.textContent='Run again →'; }, 1500);
+    phase=0; run++; runB.disabled=true; runB.textContent=SKETCH_ENDPOINT?'Generating…':'Sketching…'; out.style.display='none';
+    try{ out.innerHTML=await generate(T,src,url,file); }
+    catch(e){ out.innerHTML=courseHTML(T,src); }
+    out.style.display='block'; runB.disabled=false; runB.textContent='Run again →';
   });
 
   /* lead form → send straight to Cultigen (FormSubmit AJAX, no email client) */
