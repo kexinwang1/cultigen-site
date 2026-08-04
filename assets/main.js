@@ -13,14 +13,13 @@
   const toggle    = document.querySelector('.nav-toggle');
   const hero      = document.querySelector('.hero');
 
-  nav.classList.add('on-dark'); // hero is light-painted → dark text
-
-  function updateNav() {
-    const past = window.scrollY > (hero ? hero.offsetHeight * 0.6 : 60);
-    nav.classList.toggle('scrolled', past);
+  if (nav) {
+    nav.classList.add('on-dark'); // hero is light-painted → dark text
+    const updateNav = () => nav.classList.toggle('scrolled',
+      window.scrollY > (hero ? hero.offsetHeight * 0.6 : 60));
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
   }
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
 
   if (toggle && mobileNav) {
     toggle.addEventListener('click', () => {

@@ -30,7 +30,7 @@
     --fh-d-base:#e2d6bc; --fh-d-body:#cdba9a; --fh-d-body2:#e1d2b5; --fh-d-metal:#8f7c5c;
     --fh-d-core:#9b6bff; --fh-d-card:#fbf5e7; --fh-d-cardline:#c7b791; --fh-d-warm:#f2b34e; --fh-d-dust:#c1b18d;
     position:relative; min-height:100vh; display:flex; align-items:center;
-    padding:96px clamp(20px,5vw,48px) 48px; overflow:hidden;
+    padding:40px clamp(20px,5vw,48px); overflow:hidden;
     background:var(--fh-paper);
     background-image:
       radial-gradient(120% 90% at 76% 22%, color-mix(in srgb, var(--fh-glow) 10%, transparent), transparent 60%),
@@ -181,41 +181,13 @@
   <symbol id="i-package" viewBox="0 0 24 24"><path d="M12 2.8 20 7v10l-8 4.2L4 17V7z"/><path d="M4 7l8 4.2L20 7"/><line x1="12" y1="11.2" x2="12" y2="21.2"/></symbol>
 </defs></svg>
 
-<!-- ═══ NAV ═══ -->
-<header class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="/"><img class="logo-mark" src="/assets/logo-mark.svg" alt="" aria-hidden="true"> Cultigen</a>
-    <nav class="nav-links" aria-label="Primary">
-      <a href="/" aria-current="page">Home</a>
-      <a href="/engine.html">Engine</a>
-      <a href="/brands.html">Course brands</a>
-      <a href="/story.html">Story</a>
-      <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
-      <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
-    </nav>
-    <div class="nav-cta">
-      <a href="mailto:cultigen.ai@artineerade.com" class="btn btn-primary btn-sm">Get involved →</a>
-      <button class="nav-toggle" aria-label="open menu" aria-expanded="false">☰</button>
-    </div>
-  </div>
-</header>
-<nav class="mobile-nav" aria-label="Mobile" id="mobile-nav">
-  <a href="/">Home</a>
-  <a href="/engine.html">Engine</a>
-  <a href="/brands.html">Course brands</a>
-  <a href="/story.html">Story</a>
-  <a href="mailto:cultigen.ai@artineerade.com">Contact</a>
-  <a href="https://funguylab.com/" target="_blank" rel="noopener">FunguyLab ↗</a>
-  <a href="mailto:cultigen.ai@artineerade.com" class="btn btn-primary">Get involved →</a>
-</nav>
-
 <main id="main">
 
 <!-- ═══ HERO — pixel paper-cut engine ═══ -->
 <section class="fh-hero" id="top">
   <div class="fh-inner">
     <div class="fh-copy">
-      <a class="fh-logo" href="/"><img src="/assets/logo-mark.svg" alt="Cultigen" width="46" height="46"><span>cultigen.ai</span></a>
+      <a class="fh-logo" href="/"><span>cultigen.ai</span></a>
       <p class="fh-lede">
         Cultigen turns the newest technology into hands-on courses you can build: a lesson, an interactive,
         and a kit. Every course is reviewed by the original researchers, so it's AI-generated but
