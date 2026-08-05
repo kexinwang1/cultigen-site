@@ -325,4 +325,25 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
   });
 
+  /* ── subtle site-wide social dock (bottom-right) ───────── */
+  (function () {
+    if (document.querySelector('.social-dock')) return;
+    const IG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c2.7 0 3 0 4.1.06 1.1.05 1.7.24 2.1.4.5.2.9.45 1.3.85.4.4.65.8.85 1.3.16.4.35 1 .4 2.1.06 1.1.06 1.4.06 4.1s0 3-.06 4.1c-.05 1.1-.24 1.7-.4 2.1a3.5 3.5 0 0 1-.85 1.3 3.5 3.5 0 0 1-1.3.85c-.4.16-1 .35-2.1.4-1.1.06-1.4.06-4.1.06s-3 0-4.1-.06c-1.1-.05-1.7-.24-2.1-.4a3.5 3.5 0 0 1-1.3-.85 3.5 3.5 0 0 1-.85-1.3c-.16-.4-.35-1-.4-2.1C2 15 2 14.7 2 12s0-3 .06-4.1c.05-1.1.24-1.7.4-2.1.2-.5.45-.9.85-1.3.4-.4.8-.65 1.3-.85.4-.16 1-.35 2.1-.4C9 2 9.3 2 12 2Zm0 1.8c-2.65 0-2.96 0-4 .06-.97.04-1.5.2-1.85.34-.47.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.35-.3.88-.34 1.85-.05 1.04-.06 1.35-.06 4s0 2.96.06 4c.04.97.2 1.5.34 1.85.18.47.4.8.75 1.15.35.35.68.57 1.15.75.35.14.88.3 1.85.34 1.04.05 1.35.06 4 .06s2.96 0 4-.06c.97-.04 1.5-.2 1.85-.34.47-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.35.3-.88.34-1.85.05-1.04.06-1.35.06-4s0-2.96-.06-4c-.04-.97-.2-1.5-.34-1.85a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.35-.14-.88-.3-1.85-.34-1.04-.05-1.35-.06-4-.06Zm0 3.06a5.14 5.14 0 1 1 0 10.28 5.14 5.14 0 0 1 0-10.28Zm0 1.8a3.34 3.34 0 1 0 0 6.68 3.34 3.34 0 0 0 0-6.68Zm5.34-1.06a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0Z"/></svg>';
+    const LI = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3.2 9h3.6v11.5H3.2zM9.3 9h3.45v1.57h.05c.48-.9 1.65-1.85 3.4-1.85 3.63 0 4.3 2.39 4.3 5.5v6.28h-3.6v-5.56c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.66H9.3z"/></svg>';
+    const X  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2.6h3.3l-7.2 8.24L23.7 21.4h-6.63l-5.2-6.8-5.95 6.8H2.6l7.7-8.8L2.1 2.6h6.8l4.7 6.2Zm-1.16 16.8h1.83L8.35 4.5H6.4Z"/></svg>';
+    const links = [
+      ['Instagram', 'https://www.instagram.com/cultigen.ai/', IG],
+      ['LinkedIn', 'https://www.linkedin.com/company/cultigen-ai', LI]
+      // ['X', 'https://x.com/<handle>', X]  ← add when the handle is confirmed
+    ];
+    void X;
+    const dock = document.createElement('nav');
+    dock.className = 'social-dock';
+    dock.setAttribute('aria-label', 'Cultigen on social media');
+    dock.innerHTML = links.map(l =>
+      '<a href="' + l[1] + '" target="_blank" rel="noopener" aria-label="' + l[0] + '" title="' + l[0] + '">' + l[2] + '</a>'
+    ).join('');
+    document.body.appendChild(dock);
+  })();
+
 })();

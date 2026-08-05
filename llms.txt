@@ -25,4 +25,5 @@ As large language models and physical AI take over more of our routine mental an
 - Course brands: https://cultigen.ai/brands.html
 - Workshops: https://cultigen.ai/workshops.html
 - Story: https://cultigen.ai/story.html
+- FAQ: https://cultigen.ai/faq.html
 - FunguyLab (first course brand): https://funguylab.com/
