@@ -333,10 +333,9 @@
     const X  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 2.6h3.3l-7.2 8.24L23.7 21.4h-6.63l-5.2-6.8-5.95 6.8H2.6l7.7-8.8L2.1 2.6h6.8l4.7 6.2Zm-1.16 16.8h1.83L8.35 4.5H6.4Z"/></svg>';
     const links = [
       ['Instagram', 'https://www.instagram.com/cultigen.ai/', IG],
+      ['X', 'https://x.com/cultigenai', X],
       ['LinkedIn', 'https://www.linkedin.com/company/cultigen-ai', LI]
-      // ['X', 'https://x.com/<handle>', X]  ← add when the handle is confirmed
     ];
-    void X;
     const dock = document.createElement('nav');
     dock.className = 'social-dock';
     dock.setAttribute('aria-label', 'Cultigen on social media');
