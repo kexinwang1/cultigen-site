@@ -1,20 +1,28 @@
 # Cultigen
 
-> Cultigen is an AI platform that helps educators — from K-12 to universities — keep their curricula on the frontier: diagnosing what to teach, coaching faculty, giving course-development teams AI tools, and turning frontier research (or a real industry process or product) into lessons, interactives, and buildable kits.
+> Cultigen is a course engine. It uses AI to turn the newest research and technology into complete hands-on courses (a lesson, a working interactive, and a buildable kit), each reviewed by the original researchers, and launches them as course brands taught in person. FunguyLab is the first.
 
 ## What Cultigen does
-- **Diagnose & manage the curriculum**: map every department's courses and pinpoint what to add, cut, or revise so programs stay frontier, differentiated, and aligned with workforce needs.
-- **Coach faculty**: turn course design — historically a tacit craft — into guided, accelerated steps, with AI coaching and ready-to-use materials.
-- **Power course teams**: AI tools that speed up course design and iteration, diagnose existing courses, and tailor materials to a school's actual students.
-- **Make hands-on kits buildable**: design and mass-produce the hands-on kits a course needs, affordably and customizably.
+- **Turns the frontier into courses**: give Cultigen a research paper, an industry process, or a real product, and it returns a complete hands-on course, a lesson that reaches the core idea, a working interactive you can play with, and a kit you build with your own hands.
+- **Reviewed by the original researchers**: every course is checked by the people behind the work, so it is AI-generated yet trustworthy and responsible.
+- **Launched as course brands**: each course becomes its own brand people can find, join, and love.
+- **Taught in person**: courses are learned hands-on, in person, at workshops.
+
+## Mission
+As large language models and physical AI take over more of our routine mental and manual work, what people should be learning is the frontier. Understanding the newest research, while it is still new, is what turns a person from a user of tools into a creator. Today the frontier is a concentrated asset, reachable by only a few. Cultigen turns the world's most advanced technology into courses anyone can build, so the frontier becomes a shared, global asset instead of a privilege, and the next wave of invention gets far larger.
 
 ## Key facts
-- **Who it's for**: institutions and academic leaders, faculty and course-development teams, and students — from K-12 districts to university departments.
-- **Sources it turns into courses**: a frontier research paper, an industry process, or a real product — each becomes learnable content, a working interactive, and a buildable kit.
-- **Proof / first product**: FunguyLab, a bioprinter that uses light and AI to grow living fungi into designed forms; a hands-on kit adopted by universities and community labs, published at SIGGRAPH.
-- **Thesis**: schools are not obsolete in the AI age — they have irreplaceable value; what needs fixing is the quality of the course.
+- **What it is**: an AI course engine that turns frontier research and technology into hands-on courses (lesson + interactive + kit), each reviewed by the original researchers.
+- **First course brand**: FunguyLab, which uses light and AI to grow living fungi and slime mold into printed forms; published at SIGGRAPH Asia; teaches hands-on biology, art, and engineering.
+- **Workshops**: hands-on cohorts taught in person. First sessions are forming with partner labs in Baltimore (BUGSS), New York (Genspace), and Shanghai (MANA). The Baltimore cohort on light-printing slime mold is scheduled for October 2026.
+- **Founder**: Kexin Wang, a researcher at MIT CSAIL.
 - **Contact**: cultigen.ai@artineerade.com
 
 ## Links
 - Website: https://cultigen.ai/
-- FunguyLab (first product): https://funguylab.com
+- Mission: https://cultigen.ai/mission.html
+- The engine: https://cultigen.ai/engine.html
+- Course brands: https://cultigen.ai/brands.html
+- Workshops: https://cultigen.ai/workshops.html
+- Story: https://cultigen.ai/story.html
+- FunguyLab (first course brand): https://funguylab.com/
