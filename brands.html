@@ -25,19 +25,12 @@
 <meta name="twitter:description" content="Cultigen launches each course as a course brand people can find, join, and love. FunguyLab is the first." />
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Course brands — Cultigen","description":"Cultigen launches each course as a course brand people can find, join, and love. FunguyLab is the first.","url":"https://cultigen.ai/brands.html","isPartOf":{"@type":"WebSite","name":"Cultigen","url":"https://cultigen.ai/"},"publisher":{"@type":"Organization","name":"Cultigen","url":"https://cultigen.ai/"}}</script>
 <style id="wall">
-  /* achievement pinboard (always visible) */
-  .board{ background:#efe6d3; border-top:1px solid #d8c8a8; padding:56px clamp(18px,5vw,48px) 72px; overflow:hidden;
-    background-image:radial-gradient(120% 70% at 80% 0%, color-mix(in srgb,#9b6bff 8%,transparent), transparent 60%); }
-  .board-lead{ width:min(1120px,100%); margin:0 auto 30px; font-family:var(--fd); font-weight:600;
-    font-size:clamp(1.15rem,2.4vw,1.5rem); letter-spacing:-.005em; color:#241d15; }
-  .board-lead .hint{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-weight:400; font-size:.62rem;
-    letter-spacing:.14em; text-transform:uppercase; color:#6f6350; margin-left:10px; }
-  .board-in{ position:relative; width:min(1120px,100%); margin-inline:auto; height:640px; }
-  .frame{ position:absolute; width:clamp(114px,11vw,148px); cursor:grab;
-    transform:rotate(var(--rot,0deg)); background:#fff; padding:9px 9px 7px;
-    border:3px solid #241d15; box-shadow:5px 6px 0 rgba(60,44,22,.20);
-    transition:transform .22s cubic-bezier(.2,.8,.25,1), box-shadow .22s, filter .22s;
-    filter:saturate(.94); user-select:none; touch-action:none; }
+  /* keep the prose above the drifting achievement wall */
+  .simple{ position:relative; z-index:1; }
+
+  /* a pixel achievement frame */
+  .frame{ position:relative; width:100%; background:#fff; padding:8px 8px 6px; border:3px solid #241d15;
+    box-shadow:5px 6px 0 rgba(60,44,22,.20); filter:saturate(.94); transform:rotate(var(--rot,0deg)); }
   .frame::after{ content:""; position:absolute; inset:3px; border:1px solid rgba(60,44,22,.12); pointer-events:none; }
   .frame img{ width:100%; height:auto; display:block; aspect-ratio:1/1; object-fit:cover;
     image-rendering:auto; -webkit-user-drag:none; background:#efe6d3; }
@@ -45,20 +38,34 @@
   .frame .cap{ display:block; margin-top:6px; font-family:var(--fm,ui-monospace,Menlo,monospace);
     font-size:.55rem; letter-spacing:.08em; text-transform:uppercase; color:#6f6350; text-align:center; }
   .frame .poster-face{ aspect-ratio:1/1; display:flex; flex-direction:column; justify-content:center;
-    align-items:center; gap:7px; padding:12px; text-align:center;
-    background:linear-gradient(150deg,#f3ecdb,#e7dcc3); }
+    align-items:center; gap:7px; padding:12px; text-align:center; background:linear-gradient(150deg,#f3ecdb,#e7dcc3); }
   .frame .pf-tag{ font-family:var(--fm,ui-monospace,Menlo,monospace); font-size:.5rem; letter-spacing:.16em;
     text-transform:uppercase; color:#7d51e0; }
   .frame .pf-name{ font-family:ui-serif,Palatino,Georgia,serif; font-weight:600; font-size:.86rem;
     line-height:1.15; color:#241d15; }
-  .frame:hover{ transform:rotate(0deg) scale(1.08); box-shadow:8px 11px 0 rgba(60,44,22,.24); filter:saturate(1.04); z-index:6; }
-  .frame.dragging{ transition:none; cursor:grabbing; transform:rotate(0deg) scale(1.05); z-index:40;
-    box-shadow:10px 14px 0 rgba(60,44,22,.26); filter:saturate(1.06); }
-  .frame.thrown{ transition:none; transform:rotate(0deg); }
-  @media (max-width:900px){
-    .board-in{ height:auto; display:flex; flex-wrap:wrap; gap:16px; justify-content:center; }
-    .frame{ position:static !important; left:auto !important; top:auto !important; width:clamp(128px,40vw,160px); cursor:default; }
-    .board-lead .hint{ display:none; }
+
+  /* desktop: two vertical marquees drifting up behind the prose */
+  .flow{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);
+            mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent); }
+  .flow-col{ position:absolute; top:0; width:clamp(118px,12vw,156px); }
+  .flow-col.left{ left:max(10px,2.2vw); }
+  .flow-col.right{ right:max(10px,2.2vw); }
+  .flow-track{ display:flex; flex-direction:column; will-change:transform; animation:flowUp linear infinite; }
+  .flow-track .frame{ margin-bottom:24px; }
+  .flow-col.left .flow-track{ animation-duration:46s; }
+  .flow-col.right .flow-track{ animation-duration:58s; }
+  @keyframes flowUp{ from{ transform:translateY(0) } to{ transform:translateY(-50%) } }
+  @media (prefers-reduced-motion: reduce){ .flow-track{ animation:none } }
+
+  /* mobile: a simple static grid below the prose */
+  .board{ display:none; background:#efe6d3; border-top:1px solid #d8c8a8; padding:44px 20px 64px; }
+  .board-lead{ text-align:center; font-family:var(--fd); font-weight:600; font-size:1.2rem; color:#241d15; margin:0 0 24px; }
+  .board-in{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+  .board-in .frame{ width:clamp(130px,42vw,168px); }
+  @media (max-width:1000px){
+    .flow{ display:none; }
+    .board{ display:block; }
   }
 </style>
 </head>
@@ -81,104 +88,47 @@
     <p>It launches each course as a <strong>course brand</strong>: something with a name, an identity, and a
       community that people are proud to be part of and want to share.</p>
     <p><strong>FunguyLab</strong> is the first. It uses light and AI to grow living fungi into designed
-      forms, a hands-on kit built from our own research published at SIGGRAPH. It launched a month ago and
-      reached the front page of r/mycology in a day.</p>
+      forms, a hands-on kit built from our own research. It launched only a month ago and is already earning
+      recognition across research, art, press, and community, with more below.</p>
     <p>More course brands are on the way. <a class="inline" href="https://funguylab.com/" target="_blank" rel="noopener">Visit FunguyLab ↗</a></p>
   </div>
 </main>
 
-<!-- FunguyLab achievement pinboard — draggable pixel frames (images from funguylab.com) -->
-<section class="board" aria-label="What FunguyLab has done">
-  <p class="board-lead">FunguyLab, so far.<span class="hint">Drag the frames</span></p>
-  <div class="board-in" id="board-in">
-    <figure class="frame" style="left:2%;top:1%;--rot:-4deg">
-      <img src="https://funguylab.com/assets/photos/fig-siggraph.jpg" alt="FunguyLab research figure" loading="lazy">
-      <figcaption class="cap">SIGGRAPH Asia · 2024</figcaption>
-    </figure>
-    <figure class="frame" style="left:22%;top:2%;--rot:3deg">
-      <img src="https://funguylab.com/assets/photos/reearth-award.png" alt="reEarth art prize" loading="lazy">
-      <figcaption class="cap">reEarth Jury Choice · 2025</figcaption>
-    </figure>
-    <figure class="frame" style="left:44%;top:0%;--rot:-3deg">
-      <img class="fit-contain" src="https://funguylab.com/assets/photos/hackaday.jpg" alt="FunguyLab on Hackaday" loading="lazy">
-      <figcaption class="cap">Featured on Hackaday</figcaption>
-    </figure>
-    <figure class="frame" style="left:66%;top:2%;--rot:4deg">
-      <img src="https://funguylab.com/assets/photos/mit-act.jpg" alt="FunguyLab at MIT ACT" loading="lazy">
-      <figcaption class="cap">MIT ACT · The Cube</figcaption>
-    </figure>
-    <figure class="frame" style="left:86%;top:1%;--rot:-5deg">
-      <img class="fit-contain" src="https://funguylab.com/assets/photos/biofab2.jpg" alt="FunguyLab at BioFabricate" loading="lazy">
-      <figcaption class="cap">BioFabricate Summit</figcaption>
-    </figure>
-    <figure class="frame" style="left:10%;top:33%;--rot:5deg">
-      <img src="https://funguylab.com/assets/photos/reddit.jpg" alt="Front page of r/mycology" loading="lazy">
-      <figcaption class="cap">#1 on r/mycology</figcaption>
-    </figure>
-    <figure class="frame" style="left:32%;top:35%;--rot:-4deg">
-      <img src="https://funguylab.com/assets/photos/waic-mana2.jpg" alt="FunguyLab at WAIC Shanghai" loading="lazy">
-      <figcaption class="cap">WAIC Shanghai · 2026</figcaption>
-    </figure>
-    <figure class="frame" style="left:55%;top:33%;--rot:3deg">
-      <img src="https://funguylab.com/assets/photos/bugss.jpg" alt="FunguyLab at BUGSS Baltimore" loading="lazy">
-      <figcaption class="cap">BUGSS Science Slam · 2026</figcaption>
-    </figure>
-    <figure class="frame" style="left:78%;top:35%;--rot:-5deg">
-      <img src="/assets/csc-opencall.jpg" alt="Cambridge Science Carnival open call" loading="lazy">
-      <figcaption class="cap">Cambridge Science Carnival</figcaption>
-    </figure>
-    <figure class="frame" style="left:2%;top:66%;--rot:4deg">
-      <img src="https://funguylab.com/assets/photos/slimecolor6.jpg" alt="Slime mold dyeing kit with Yewei Jun" loading="lazy">
-      <figcaption class="cap">Slime dye kit × Yewei Jun</figcaption>
-    </figure>
-    <figure class="frame poster" style="left:24%;top:67%;--rot:-3deg">
-      <div class="poster-face"><span class="pf-tag">Brown · 2024</span><span class="pf-name">Hazeltine<br>Maker Grant</span></div>
-      <figcaption class="cap">Research funding</figcaption>
-    </figure>
-    <figure class="frame poster" style="left:47%;top:66%;--rot:5deg">
-      <div class="poster-face"><span class="pf-tag">Upcoming</span><span class="pf-name">Berlin New<br>Media Week</span></div>
-      <figcaption class="cap">2026 · Exhibiting</figcaption>
-    </figure>
-    <figure class="frame poster" style="left:70%;top:67%;--rot:-4deg">
-      <div class="poster-face"><span class="pf-tag">Upcoming</span><span class="pf-name">Inclusion·<br>on the Bund</span></div>
-      <figcaption class="cap">Shanghai · 2026</figcaption>
-    </figure>
-  </div>
-</section>
+<!-- FunguyLab achievements — drifting marquee (desktop) + static grid (mobile) -->
+<div class="flow" id="flow" aria-hidden="true"></div>
+<section class="board" id="board" aria-label="What FunguyLab has done"></section>
 
 <script>
-/* draggable achievement frames (desktop pointer) */
+/* Build the FunguyLab achievement wall: two upward-drifting columns on desktop,
+   a simple grid on mobile. One source list, rendered into both. */
 (function(){
-  const board = document.getElementById('board-in');
-  if(!board || !matchMedia('(min-width:901px) and (pointer:fine)').matches) return;
-  let top = 30;
-  board.querySelectorAll('.frame').forEach(f => {
-    let sx, sy, ox, oy, moved;
-    f.addEventListener('pointerdown', e => {
-      e.preventDefault();
-      const br = board.getBoundingClientRect(), r = f.getBoundingClientRect();
-      ox = r.left - br.left; oy = r.top - br.top;            // position relative to board
-      f.style.left = ox + 'px'; f.style.top = oy + 'px'; f.style.right = 'auto';
-      sx = e.clientX; sy = e.clientY; moved = false;
-      f.setPointerCapture(e.pointerId);
-      f.classList.add('dragging'); f.classList.remove('thrown');
-      f.style.zIndex = ++top;
-    });
-    f.addEventListener('pointermove', e => {
-      if(!f.classList.contains('dragging')) return;
-      const dx = e.clientX - sx, dy = e.clientY - sy;
-      if(Math.abs(dx) + Math.abs(dy) > 3) moved = true;
-      f.style.left = (ox + dx) + 'px';
-      f.style.top  = (oy + dy) + 'px';
-    });
-    const end = () => {
-      if(!f.classList.contains('dragging')) return;
-      f.classList.remove('dragging');
-      if(moved) f.classList.add('thrown');
-    };
-    f.addEventListener('pointerup', end);
-    f.addEventListener('pointercancel', end);
-  });
+  const P = 'https://funguylab.com/assets/photos/';
+  const ACH = [
+    { img:P+'fig-siggraph.jpg', alt:'FunguyLab research figure', cap:'SIGGRAPH Asia · 2024', rot:-3 },
+    { img:P+'reearth-award.png', alt:'reEarth art prize', cap:'reEarth Jury Choice · 2025', rot:3 },
+    { img:P+'hackaday.jpg', contain:true, alt:'FunguyLab on Hackaday', cap:'Featured on Hackaday', rot:-2 },
+    { img:P+'mit-act.jpg', alt:'FunguyLab at MIT ACT', cap:'MIT ACT · The Cube', rot:3 },
+    { img:P+'biofab2.jpg', contain:true, alt:'FunguyLab at BioFabricate', cap:'BioFabricate Summit', rot:-3 },
+    { img:P+'reddit.jpg', alt:'Front page of r/mycology', cap:'#1 on r/mycology', rot:2 },
+    { img:P+'waic-mana2.jpg', alt:'FunguyLab at WAIC Shanghai', cap:'WAIC Shanghai · 2026', rot:-3 },
+    { img:P+'bugss.jpg', alt:'FunguyLab at BUGSS Baltimore', cap:'BUGSS Science Slam · 2026', rot:3 },
+    { img:'/assets/csc-opencall.jpg', alt:'Cambridge Science Carnival open call', cap:'Cambridge Science Carnival', rot:-2 },
+    { img:P+'slimecolor6.jpg', alt:'Slime mold dyeing kit with Yewei Jun', cap:'Slime dye kit × Yewei Jun', rot:3 },
+    { poster:{ tag:'Brown · 2024', name:'Hazeltine<br>Maker Grant' }, cap:'Research funding', rot:-3 },
+    { poster:{ tag:'Upcoming', name:'Berlin New<br>Media Week' }, cap:'2026 · Exhibiting', rot:3 },
+    { poster:{ tag:'Upcoming', name:'Inclusion·<br>on the Bund' }, cap:'Shanghai · 2026', rot:-3 }
+  ];
+  function F(a){
+    const body = a.poster
+      ? '<div class="poster-face"><span class="pf-tag">'+a.poster.tag+'</span><span class="pf-name">'+a.poster.name+'</span></div>'
+      : '<img'+(a.contain?' class="fit-contain"':'')+' src="'+a.img+'" alt="'+a.alt+'" loading="lazy">';
+    return '<figure class="frame'+(a.poster?' poster':'')+'" style="--rot:'+a.rot+'deg">'+body+'<figcaption class="cap">'+a.cap+'</figcaption></figure>';
+  }
+  const flow = document.getElementById('flow'), board = document.getElementById('board');
+  const left = ACH.filter((_,i)=>i%2===0), right = ACH.filter((_,i)=>i%2===1);
+  const col = items => { const set = items.map(F).join(''); return '<div class="flow-track">'+set+set+'</div>'; };
+  if(flow) flow.innerHTML = '<div class="flow-col left">'+col(left)+'</div><div class="flow-col right">'+col(right)+'</div>';
+  if(board) board.innerHTML = '<p class="board-lead">FunguyLab, so far.</p><div class="board-in">'+ACH.map(F).join('')+'</div>';
 })();
 </script>
 <script src="/assets/main.js" defer></script>
